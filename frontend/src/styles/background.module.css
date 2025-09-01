@@ -1,0 +1,16 @@
+.background {
+  background-color: #000000;
+}
+
+#backG{
+    width:fit-content;
+    height: max-content;
+    position: fixed;
+    z-index: -3;
+    margin: -3;
+    display: flex;
+    
+    
+
+}
+
