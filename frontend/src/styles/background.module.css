@@ -1,8 +1,7 @@
 .background {
   background-color: #000000;
 }
-
-#backG{
+.backG{
     width:fit-content;
     height: max-content;
     position: fixed;

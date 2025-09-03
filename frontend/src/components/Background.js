@@ -1,7 +1,7 @@
 import React from "react";
 import styles from '../styles/background.module.css';
 import testStyles from '../styles/test.module.css';
-import bg from "../assets/background.svg"
+
 
 const svgCode=()=>{
     return(
