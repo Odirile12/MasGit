@@ -86,7 +86,7 @@ export default function GeometricSignInForm() {
               }}
             >
               
-              <span className="relative z-10"><Link to ="/Home" className=" text-6xl font-extralight p-3 font-sans hover:bg-[rgba(255,255,255,0.22)] text-white" >Login</Link></span>
+              <span className="relative z-10"><Link to ="/Feed" className=" text-6xl font-extralight p-3 font-sans hover:bg-[rgba(255,255,255,0.22)] text-white" >Login</Link></span>
             </button>
           </div>
         </div>

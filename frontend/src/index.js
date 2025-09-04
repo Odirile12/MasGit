@@ -2,7 +2,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, createBrowserRouter,RouterProvider } from "react-router";
-import Home from "./Pages/Home";
+import Project from "./Pages/Project";
 import Posts from "./Pages/Posts";
 import Spash from "./Pages/SpashPage"
 import Login from "./Pages/Login"
@@ -34,8 +34,8 @@ const router = createBrowserRouter([
         element:<Spash/>
     },
     {
-        path: "/Home",
-        element: <Home />,
+        path: "/Project",
+        element: <Project />,
     },
     { 
         path: "/posts",
@@ -53,7 +53,7 @@ root.render(
         <Routes>
             <Route path="/Profile" element={<Profile />} />
             <Route path="/" element={<Spash />} />
-            <Route path="/Home" element={<Home />} />
+            <Route path="/Project" element={<Project />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/Feed" element={<Feed />} />

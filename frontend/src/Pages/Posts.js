@@ -22,7 +22,7 @@ const postsArr=[
 const Posts = () => {
     return(
         <div>   
-        <Link to ="/" >Home</Link>
+        <Link to ="/" >Project</Link>
         <Link to="/posts">Posts</Link>
 ,
 
