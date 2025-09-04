@@ -21,7 +21,7 @@ const ProjectCard = ({ project }) => {
         <div className="flex-1">
           <div className="flex items-center space-x-2 mb-1">
             <h3 className="text-lg font-semibold text-blue-400 hover:text-blue-300 cursor-pointer">
-              <Link to="../Project" className="px-3 py-2 rounded-md hover:bg-gray-700 transition">
+              <Link to={`../Project/${project.id}`} className="px-3 py-2 rounded-md hover:bg-gray-700 transition">
                 {project.name}
               </Link>
             </h3>

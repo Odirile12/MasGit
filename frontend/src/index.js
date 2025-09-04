@@ -8,7 +8,7 @@ import Spash from "./Pages/SpashPage"
 import Login from "./Pages/Login"
 import SignIn from "./Pages/Signin"
 import Feed from "./Pages/Feed"
-import Profile from "./Pages/profile"
+import Profile from "./Pages/Profile"
 
 const root = createRoot(document.getElementById("root"));
 
@@ -53,7 +53,7 @@ root.render(
         <Routes>
             <Route path="/Profile" element={<Profile />} />
             <Route path="/" element={<Spash />} />
-            <Route path="/Project" element={<Project />} />
+            <Route path="/Project/:id" element={<Project />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/Feed" element={<Feed />} />

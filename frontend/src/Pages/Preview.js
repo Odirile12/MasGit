@@ -6,7 +6,6 @@ const ProjectPreview = () => {
   const [isStarred, setIsStarred] = useState(false);
   const [isWatching, setIsWatching] = useState(true);
 
-  // Mock project data
   const projectData = {
     name: "student-portal-app",
     description: "A comprehensive full-stack student management system built with React, Node.js, and MongoDB. Features include course enrollment, grade tracking, assignment submission, and real-time communication between students and instructors.",

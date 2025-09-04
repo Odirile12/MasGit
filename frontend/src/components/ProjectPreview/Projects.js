@@ -6,7 +6,7 @@ const Project = ({ project }) => {
     <h2 className="text-2xl font-bold text-white mb-2">{project.title}</h2>
     <p className="text-gray-400 mb-4">{project.description}</p>
     <div className="flex items-center justify-between text-sm text-gray-300">
-      <span>Owner: {project.owner ||""}</span>
+      <span>Owner: {project.owner}</span>
       <span>
         Status: <span className="text-green-400">{project.status}</span>
       </span>

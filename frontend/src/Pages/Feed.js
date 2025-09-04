@@ -88,8 +88,10 @@ const GitHubFeed = () => {
       />
       
       <main className="px-6 py-6">
-        <ProjectList projects={projects} />
-        {/* <LoadMoreButton /> */}
+	  {/* <ProjectPreview key={p.id} project={p} /> */}
+        {/* <ProjectList key={p.id} projects={projects} /> */}
+				<ProjectList  projects={projects} />
+       
       </main>
     </div>
 	);
