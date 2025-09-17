@@ -12,37 +12,37 @@ import Profile from "./Pages/Profile"
 
 const root = createRoot(document.getElementById("root"));
 
-const router = createBrowserRouter([
-    {
-        path:"/Profile",
-        element: <Profile/>
-    },
-    {
-        path:"/Feed",
-        element: <Feed/>
-    },
-    {
-         path: "/Login",
-        element:<Login/>
-    },
-    {
-        path: "/SignIn",
-        element:<SignIn/>
-    },
-    {
-        path: "/",
-        element:<Spash/>
-    },
-    {
-        path: "/Project",
-        element: <Project />,
-    },
-    { 
-        path: "/posts",
-        element: <Posts />,
-    },
+// const router = createBrowserRouter([
+//     {
+//         path:"/Profile",
+//         element: <Profile/>
+//     },
+//     {
+//         path:"/Feed",
+//         element: <Feed/>
+//     },
+//     {
+//          path: "/Login",
+//         element:<Login/>
+//     },
+//     {
+//         path: "/SignIn",
+//         element:<SignIn/>
+//     },
+//     {
+//         path: "/",
+//         element:<Spash/>
+//     },
+//     {
+//         path: "/Project",
+//         element: <Project />,
+//     },
+//     { 
+//         path: "/posts",
+//         element: <Posts />,
+//     },
     
-]);
+// ]);
 
 
 root.render(

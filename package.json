@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "CHOKIDAR_USEPOLLING=true webpack serve",
+    "start": " webpack serve",
     "build": "webpack",
     "tailwind": "npx tailwindcss build ./input.css -o dist/output.css"
   },
@@ -22,7 +22,7 @@
     "tailwind": "^2.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.3",
+    "@babel/core": "^7.28.4",
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
     "@svgr/webpack": "^8.1.0",
