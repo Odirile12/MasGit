@@ -18,7 +18,10 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 const authRout=require('./API/route/Auth')
-const userRout=require('./API/route/')
+const userRout=require('./API/route/Users')
+const projectRout=require('./API/route/Projects')
+const checkinRout=require('./API/route/CheckIn')
+const activityRout=require('./API/route/Activities')
 
 
 
