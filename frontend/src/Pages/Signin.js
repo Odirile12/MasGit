@@ -1,7 +1,6 @@
 import React, { useState } from 'react'; 
 import { Link, useNavigate } from "react-router";
 
-// Regex patterns
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const lowercaseRegex = /(?=.*[a-z])/;
 const uppercaseRegex = /(?=.*[A-Z])/;
