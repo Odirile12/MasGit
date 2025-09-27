@@ -70,7 +70,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',  // Changed: removed './frontend/'
+  entry: './frontend/src/index.js',  // Changed: removed './frontend/'
   output: {
     path: path.resolve(__dirname, 'dist'),  // Changed: removed 'frontend/'
     filename: 'bundle.js',
@@ -114,7 +114,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'public'),  // Changed: removed 'frontend/'
+      directory: path.resolve(__dirname, 'frontend/public'),  // Changed: removed 'frontend/'
     },
     historyApiFallback: true,
     port: 8080,
@@ -124,7 +124,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',  // Changed: removed 'frontend/'
+      template: './frontend/public/index.html',  // Changed: removed 'frontend/'
     }),
   ],
   stats: {
