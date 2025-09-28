@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Project = require('./models/Project');
+const Project = require('../models/Project');
 const User = require('../models/User');
 const Activity = require('../models/Activity');
 const Checkin = require('../models/CheckIn');

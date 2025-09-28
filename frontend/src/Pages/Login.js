@@ -23,7 +23,7 @@ export default function GeometricSignInForm({ onAuthSuccess }) {
     setIsLoading(true);
     
     try {
-      const response = await fetch('http://localhost:5000/api/auth/signin', {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -35,8 +35,9 @@ export default function GeometricSignInForm({ onAuthSuccess }) {
       
       if (data.success) {
         // Store user data in localStorage
+        console.log("Data: "+data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        localStorage.setItem('token', data.user.token);
+        localStorage.setItem('token', data.token);
         
         if (onAuthSuccess) {
           onAuthSuccess(data.user);

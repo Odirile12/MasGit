@@ -3,84 +3,72 @@ import { User} from 'lucide-react';
 import { Link} from "react-router";
 import Header from '../components/header/header';
 import ProjectList from '../components/Project/ProjectList';
+import { useEffect } from 'react';
 // import LoadMoreButton from './LoadMoreButton';
 
 
 
 const GitHubFeed = () => {
+	const [projects, setProjects] = useState([]);
 	const [sortBy, setSortBy] = useState('Recent');
 	const [filter, setFilter] = useState('Local');
 
-	const projects = [
-		{
-			id: 1,
-			name: "awesome-react-components",
-			description: "A curated list of awesome React components and libraries for building modern web applications",
-			author: "john_dev",
-			avatar: "JD",
-			language: "JavaScript",
-			stars: 2847,
-			forks: 234,
-			watchers: 89,
-			updatedAt: "2 hours ago",
-			isPrivate: false
-		},
-		{
-			id: 2,
-			name: "machine-learning-toolkit",
-			description: "Comprehensive toolkit for machine learning workflows with Python and TensorFlow integration",
-			author: "ai_researcher",
-			avatar: "AR",
-			language: "Python",
-			stars: 1523,
-			forks: 156,
-			watchers: 67,
-			updatedAt: "5 hours ago",
-			isPrivate: false
-		},
-		{
-			id: 3,
-			name: "design-system-ui",
-			description: "Modern design system with reusable components built with TypeScript and Storybook",
-			author: "design_team",
-			avatar: "DT",
-			language: "TypeScript",
-			stars: 892,
-			forks: 78,
-			watchers: 45,
-			updatedAt: "1 day ago",
-			isPrivate: true
-		},
-		{
-			id: 4,
-			name: "mobile-app-starter",
-			description: "Cross-platform mobile application starter template with React Native and Expo",
-			author: "mobile_dev",
-			avatar: "MD",
-			language: "JavaScript",
-			stars: 1246,
-			forks: 203,
-			watchers: 92,
-			updatedAt: "3 days ago",
-			isPrivate: false
-		}
-	];
+	const getAuthToken = () => {
+    return localStorage.getItem('token') || sessionStorage.getItem('token');
 
-	const getLanguageColor = (language) => {
-		const colors = {
-			JavaScript: 'bg-yellow-400',
-			Python: 'bg-blue-500',
-			TypeScript: 'bg-blue-600',
-			CSS: 'bg-purple-500',
-			HTML: 'bg-orange-500'
-		};
-		return colors[language] || 'bg-gray-400';
-	};
+  };
+const fetchProjects = async () => {
+    try {
+      const token = getAuthToken();
+      if (!token) {
+
+        return;
+      }
+
+      const queryParams = new URLSearchParams({
+        filter: filter,
+        sortBy: sortBy
+      });
+
+      const response = await fetch(`http://localhost:5000/api/projects?${queryParams}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const projectsData = await response.json();
+      // console.log("Projects Data: ", projectsData);
+      return projectsData;
+
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+
+    }
+  };
+useEffect(() => {
+  const loadProjects = async () => {
+    const result = await fetchProjects();
+    setProjects(result);
+  };
+  loadProjects();
+}, []);
+
+console.log("Projects: ", projects);
+
 
 	return (
     <div className="min-h-screen bg-gray-900 backdrop-blur-sm text-white">
       <Header 
-				name="Feed"
+		name="Feed"
         sortBy={sortBy} 
         filter={filter} 
         onSortChange={setSortBy}

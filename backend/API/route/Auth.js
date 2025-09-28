@@ -2,12 +2,16 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const auth = require('../middleware/Auth');
+const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
 // Register
 router.post('/register', async (req, res) => {
   try {
+    if(!req.body){
+      return res.status(400).json({message:"Request body is missing"})
+    }
     const { username, email, password, name } = req.body;
 
     // Check if user exists
@@ -33,7 +37,9 @@ router.post('/register', async (req, res) => {
     );
 
     res.status(201).json({
-      message: 'User created successfully',
+      // message: 'User created successfully',
+        success: true,
+    message: 'Login successful',
       token,
       user: {
         id: user._id,
@@ -61,13 +67,22 @@ router.post('/login', async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      
+      return res.status(400).json({ message: 'Invalid credentials',
+        email: email,
+        password: password
+
+      });
     }
 
     // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+       let pass=await bcrypt.hash(password, 10)
+      return res.status(400).json({ message: 'Invalid credentials',
+          email: email,
+        password: pass
+       });
     }
 
     // Generate token
@@ -79,6 +94,7 @@ router.post('/login', async (req, res) => {
 
     res.json({
       message: 'Login successful',
+          success: true,
       token,
       user: {
         id: user._id,
