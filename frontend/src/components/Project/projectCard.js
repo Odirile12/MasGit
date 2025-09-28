@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link} from "react-router";
+
+
 const ProjectCard = ({ project }) => {
   const getLanguageColor = (language) => {
     const colors = {
@@ -13,6 +15,7 @@ const ProjectCard = ({ project }) => {
   };
 
   return (
+    
     <div className="bg-gray-800 border border-gray-700 rounded-lg p-6 hover:bg-gray-750 transition-colors">
       <div className="flex items-start space-x-3 mb-4">
         <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-sm font-semibold">

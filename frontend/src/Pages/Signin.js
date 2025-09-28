@@ -57,13 +57,14 @@ export default function SignUpForm({ onAuthSuccess }) {
     setIsLoading(true);
     
     try {
-      const response = await fetch('http://localhost:5000/api/auth/signup', {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           username: formData.username,
+          name: formData.username,
           email: formData.email,
           password: formData.password
         })
@@ -74,7 +75,7 @@ export default function SignUpForm({ onAuthSuccess }) {
       if (data.success) {
         // Store user data in localStorage
         localStorage.setItem('user', JSON.stringify(data.user));
-        localStorage.setItem('token', data.user.token);
+        localStorage.setItem('token', data.token);
         
         if (onAuthSuccess) {
           onAuthSuccess(data.user);
