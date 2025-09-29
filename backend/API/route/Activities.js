@@ -5,7 +5,6 @@ const auth = require('../middleware/Auth');
 
 const router = express.Router();
 
-// Get activity feed
 router.get('/', auth, async (req, res) => {
   try {
     const { filter } = req.query;

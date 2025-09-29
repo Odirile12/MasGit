@@ -4,7 +4,6 @@ import { Link} from "react-router";
 import Header from '../components/header/header';
 import ProjectList from '../components/Project/ProjectList';
 import { useEffect } from 'react';
-// import LoadMoreButton from './LoadMoreButton';
 
 
 
@@ -17,6 +16,7 @@ const GitHubFeed = () => {
     return localStorage.getItem('token') || sessionStorage.getItem('token');
 
   };
+  
 const fetchProjects = async () => {
     try {
       const token = getAuthToken();
@@ -61,9 +61,6 @@ useEffect(() => {
   };
   loadProjects();
 }, []);
-
-console.log("Projects: ", projects);
-
 
 	return (
     <div className="min-h-screen bg-gray-900 backdrop-blur-sm text-white">
