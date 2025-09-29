@@ -5,6 +5,7 @@ const SearchBar = () => {
     <div className="relative w-1/3">
       <input
         type="text"
+        onChange={(e) => console.log(e.target.value)}
         placeholder="Search..."
         className="w-full px-4 py-2 text-sm rounded-xl bg-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
       />

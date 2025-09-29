@@ -1,81 +1,94 @@
-[
-    {
-        "id": "68d864e3bf16604f2b56a624",
-        "name": "React Dashboard",
-        "title": "React Dashboard",
-        "description": "A modern admin dashboard built with React and Tailwind CSS featuring responsive design and real-time data visualization.",
-        "owner": {
-            "_id": "68d864e2bf16604f2b56a61b",
-            "username": "johndoe",
-            "name": "John Doe",
-            "avatar": "JD"
-        },
-        "ownerName": "johndoe",
-        "language": "JavaScript",
-        "type": "Web Application",
-        "hashtags": [
-            "react",
-            "dashboard",
-            "tailwind",
-            "frontend",
-            "admin"
-        ],
-        "status": "Active",
-        "isPrivate": false,
-        "avatar": "RD",
-        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
-        "updatedAt": "2025-09-27T22:27:47.118Z",
-        "members": [
-            {
-                "_id": "68d864e2bf16604f2b56a61b",
-                "username": "johndoe",
-                "name": "John Doe",
-                "avatar": "JD"
-            },
-            {
-                "_id": "68d864e2bf16604f2b56a61d",
-                "username": "jansmith",
-                "name": "Jane Smith",
-                "avatar": "JS"
-            }
-        ],
-        "checkedOutBy": null
+{
+    "friendRequests": {
+        "sent": [],
+        "received": []
     },
-    {
-        "id": "68d864e3bf16604f2b56a62d",
-        "name": "Python Data Analyzer",
-        "title": "Python Data Analyzer",
-        "description": "Powerful data analysis tool for processing CSV files, generating insights, and creating visualizations with pandas and matplotlib.",
-        "owner": {
+    "_id": "68d864e2bf16604f2b56a61b",
+    "username": "johndoe",
+    "email": "john.doe@example.com",
+    "name": "John Doe",
+    "bio": "Full-stack developer passionate about open source projects and modern web technologies.",
+    "avatar": "JD",
+    "friends": [
+        {
             "_id": "68d864e2bf16604f2b56a61d",
             "username": "jansmith",
             "name": "Jane Smith",
             "avatar": "JS"
         },
-        "ownerName": "jansmith",
-        "language": "Python",
-        "type": "Data Analysis",
-        "hashtags": [
-            "python",
-            "data",
-            "csv",
-            "analytics",
-            "pandas",
-            "matplotlib"
-        ],
-        "status": "Active",
-        "isPrivate": false,
-        "avatar": "PDA",
-        "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
-        "updatedAt": "2025-09-27T22:27:47.233Z",
-        "members": [
-            {
-                "_id": "68d864e2bf16604f2b56a61d",
-                "username": "jansmith",
-                "name": "Jane Smith",
-                "avatar": "JS"
-            }
-        ],
-        "checkedOutBy": null
-    }
-]
+        {
+            "_id": "68d864e2bf16604f2b56a61f",
+            "username": "mikejohnson",
+            "name": "Mike Johnson",
+            "avatar": "MJ"
+        }
+    ],
+    "projects": [
+        {
+            "_id": "68d864e3bf16604f2b56a624",
+            "name": "React Dashboard",
+            "title": "React Dashboard",
+            "description": "A modern admin dashboard built with React and Tailwind CSS featuring responsive design and real-time data visualization.",
+            "owner": "68d864e2bf16604f2b56a61b",
+            "ownerName": "johndoe",
+            "members": [
+                "68d864e2bf16604f2b56a61b",
+                "68d864e2bf16604f2b56a61d"
+            ],
+            "language": "JavaScript",
+            "type": "Web Application",
+            "hashtags": [
+                "react",
+                "dashboard",
+                "tailwind",
+                "frontend",
+                "admin"
+            ],
+            "status": "Active",
+            "isPrivate": false,
+            "avatar": "RD",
+            "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
+            "files": [
+                {
+                    "name": "package.json",
+                    "type": "JSON",
+                    "path": "/package.json",
+                    "size": 1024,
+                    "lastModified": "2024-09-20T10:30:00.000Z",
+                    "_id": "68d864e3bf16604f2b56a625"
+                },
+                {
+                    "name": "App.js",
+                    "type": "JavaScript",
+                    "path": "/src/App.js",
+                    "size": 2048,
+                    "lastModified": "2024-09-22T14:15:00.000Z",
+                    "_id": "68d864e3bf16604f2b56a626"
+                },
+                {
+                    "name": "Dashboard.js",
+                    "type": "JavaScript",
+                    "path": "/src/components/Dashboard.js",
+                    "size": 3072,
+                    "lastModified": "2024-09-25T16:45:00.000Z",
+                    "_id": "68d864e3bf16604f2b56a627"
+                },
+                {
+                    "name": "styles.css",
+                    "type": "CSS",
+                    "path": "/src/styles.css",
+                    "size": 512,
+                    "lastModified": "2024-09-18T16:45:00.000Z",
+                    "_id": "68d864e3bf16604f2b56a628"
+                }
+            ],
+            "checkedOutBy": null,
+            "createdAt": "2025-09-27T22:27:47.118Z",
+            "updatedAt": "2025-09-27T22:27:47.118Z",
+            "__v": 0
+        }
+    ],
+    "createdAt": "2025-09-27T22:27:46.483Z",
+    "updatedAt": "2025-09-27T22:27:47.157Z",
+    "__v": 0
+}
