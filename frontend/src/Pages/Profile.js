@@ -13,6 +13,7 @@ const ProfilePage = () => {
     username: "",
     bio: "",
     avatar: "",
+    project:[]
   });
 
   const [projects, setProjects] = useState([
@@ -29,7 +30,7 @@ const getAuthToken = () => {
 
   const getAuthUserId = () => {
    let UserId=  localStorage.getItem('user') || sessionStorage.getItem('user');
-
+    console.log(UserId)
     return JSON.parse(UserId);
   };
  
@@ -114,14 +115,14 @@ console.log("Profile User: ", user?.friends?.[0]);
   return (
   <div className="min-h-screen bg-gray-900 text-white p-6">
     <div className="flex flex-col md:flex-row gap-6">
-
+    {console.log("project details"+JSON.stringify( details?.projects[0]))}
       <div className="flex-1 space-y-6">
         <Profile user={user} />
         <EditProfile user={user} onSave={setUser} />
       </div>
 
       <div className="flex-1 space-y-6">
-        <ProjectsList projects={projects} />
+        <ProjectsList projects={details?.projects} />
 
         
         <Friends friends={user?.friends} />

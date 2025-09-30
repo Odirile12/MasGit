@@ -8,7 +8,24 @@ const EditProfile = ({ user, onSave }) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    
   };
+
+  async function updateProfile(name, bio) {
+  const TOKEN= localStorage.getItem('token') || sessionStorage.getItem('token');
+
+  const response = await fetch(`http://localhost:5000/api/users/profile`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name, bio })
+  });
+  return response.json();
+}
+
+  
 
   return (
     <div className="bg-gray-800 border border-gray-700 rounded-lg p-6">
@@ -19,6 +36,7 @@ const EditProfile = ({ user, onSave }) => {
         onSubmit={(e) => {
           e.preventDefault();
           onSave(formData);
+          updateProfile(formData.name, formData.bio)
         }}
         className="space-y-3"
       >
@@ -47,6 +65,7 @@ const EditProfile = ({ user, onSave }) => {
         />
         <button
           type="submit"
+
           className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-md text-white font-medium"
         >
           Save Changes

@@ -80,17 +80,14 @@ router.post('/friend-request/:id', auth, async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Check if already friends
     if (req.user.friends.includes(targetUserId)) {
       return res.status(400).json({ message: 'Already friends' });
     }
 
-    // Check if request already sent
     if (req.user.friendRequests.sent.includes(targetUserId)) {
       return res.status(400).json({ message: 'Friend request already sent' });
     }
 
-    // Add to sent requests and target user's received requests
     await User.findByIdAndUpdate(currentUserId, {
       $push: { 'friendRequests.sent': targetUserId }
     });

@@ -97,17 +97,26 @@ router.get('/:id', auth, async (req, res) => {
       return res.status(404).json({ message: 'Project not found' });
     }
 
-    if (project.isPrivate && 
-        !project.members.some(member => member._id.toString() === req.user._id.toString()) &&
-        project.owner._id.toString() !== req.user._id.toString()) {
+    // Ensure req.user exists (auth middleware should set this)
+    if (!req.user || !req.user._id) {
+      return res.status(401).json({ message: 'Unauthorized: user not found' });
+    }
+
+    const userId = req.user._id.toString();
+    const isMember = project.members.some(m => m._id.toString() === userId);
+    const isOwner = project.owner._id.toString() === userId;
+
+    if (project.isPrivate && !isMember && !isOwner) {
       return res.status(403).json({ message: 'Access denied to private project' });
     }
 
-    res.json(project);
+    return res.json(project);
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error fetching project:', error.message);
+    return res.status(500).json({ message: 'Server error' });
   }
 });
+
 
 // Create new project
 router.post('/', auth, async (req, res) => {

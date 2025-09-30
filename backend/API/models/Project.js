@@ -46,12 +46,14 @@ const projectSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  avatar: {
-    type: String,
-    default: function() {
-      return this.name.split(' ').map(n => n[0]).join('').toUpperCase();
-    }
-  },
+avatar: {
+  type: String,
+  default: function () {
+    return typeof this.name === 'string'
+      ? this.name.split(' ').map(n => n[0]).join('').toUpperCase()
+      : '';
+  }
+},
   image: String,
   files: [{
     name: {

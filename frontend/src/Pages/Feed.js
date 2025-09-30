@@ -46,7 +46,6 @@ const fetchProjects = async () => {
       }
 
       const projectsData = await response.json();
-      // console.log("Projects Data: ", projectsData);
       return projectsData;
 
     } catch (error) {
