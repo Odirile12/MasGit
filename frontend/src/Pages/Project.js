@@ -14,8 +14,7 @@ const ProjectPage = () => {
   useEffect(() => {
     async function getProjectById() {
       try {
-        const TOKEN =
-          localStorage.getItem("token") || sessionStorage.getItem("token");
+        const TOKEN = localStorage.getItem("token") || sessionStorage.getItem("token");
 
         const response = await fetch(
           `http://localhost:5000/api/projects/${id}`,
@@ -32,10 +31,10 @@ const ProjectPage = () => {
           throw new Error("Failed to fetch project");
         }
 
-        const data = await response.json(); // ✅ use await here
+        const data = await response.json(); 
         console.log("Fetched project:", data);
 
-        setProject(data); // ✅ update state with API result
+        setProject(data); 
       } catch (err) {
         console.error("Error fetching project:", err);
       } finally {
@@ -87,6 +86,7 @@ const ProjectPage = () => {
 
           <div className="space-y-6 lg:col-span-2">
             <Files files={project.files || []} />
+            {console.log("Project got  "+JSON.stringify(project))}
             <Messages messages={project.messages || []} />
           </div>
         </div>

@@ -15,7 +15,6 @@ router.get('/', auth, async (req, res) => {
     
     let query = {};
     
-    // Filter by visibility and friends
     if (filter === 'Local') {
       const user = await User.findById(userId).populate('friends');
       const friendIds = user.friends.map(f => f._id);
@@ -30,7 +29,6 @@ router.get('/', auth, async (req, res) => {
       query = { isPrivate: false };
     }
 
-    // Search functionality
     if (search) {
       query.$and = query.$and || [];
       query.$and.push({
@@ -46,18 +44,27 @@ router.get('/', auth, async (req, res) => {
     if (type) query.type = type;
     if (language) query.language = language;
 
-    let sortOptions = {};
-    if (sortBy === 'Recent') {
-      sortOptions = { updatedAt: -1 };
-    } else if (sortBy === 'Popular') {
-      sortOptions = { 'members.length': -1, updatedAt: -1 };
-    }
-
-    const projects = await Project.find(query)
+    // Fetch projects first
+    let projects = await Project.find(query)
       .populate('owner', 'name username avatar')
       .populate('members', 'name username avatar')
-      .sort(sortOptions)
-      .limit(50);
+      .limit(100); // Get more projects before sorting
+
+    // Sort in JavaScript for complex sorting
+    if (sortBy === 'Popular') {
+      // Sort by number of members (popularity), then by recent
+      projects.sort((a, b) => {
+        const membersCompare = (b.members?.length || 0) - (a.members?.length || 0);
+        if (membersCompare !== 0) return membersCompare;
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+    } else {
+      // Default to Recent (newest first)
+      projects.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    }
+
+    // Limit to 50 after sorting
+    projects = projects.slice(0, 50);
 
     const formattedProjects = projects.map(project => ({
       id: project._id,
@@ -75,13 +82,14 @@ router.get('/', auth, async (req, res) => {
       image: project.image,
       updatedAt: project.updatedAt,
       members: project.members,
+      membersCount: project.members?.length || 0, // Add this for debugging
       checkedOutBy: project.checkedOutBy
     }));
 
     res.json(formattedProjects);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error in projects route:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 

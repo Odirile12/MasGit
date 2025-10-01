@@ -48,6 +48,7 @@ const CreateProject = ({ onCreate }) => {
 
     const createdProject = await response.json();
     console.log('Project created:', createdProject);
+    window.location.reload(); 
     return createdProject;
   } catch (err) {
     console.error('Error creating project:', err.message);
