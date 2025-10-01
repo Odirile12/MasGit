@@ -12,14 +12,12 @@ router.get('/', auth, async (req, res) => {
     let query = {};
 
     if (filter === 'Local') {
-      // Get user's friends
       const user = await User.findById(userId).populate('friends');
       const friendIds = user.friends.map(f => f._id);
-      friendIds.push(userId); // Include user's own activities
+      friendIds.push(userId);
       
       query = { userId: { $in: friendIds } };
     }
-    // Global feed shows all activities (no filter needed)
 
     const activities = await Activity.find(query)
       .sort({ createdAt: -1 })
@@ -34,7 +32,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Get activities for a specific user
 router.get('/user/:userId', auth, async (req, res) => {
   try {
     const activities = await Activity.find({ userId: req.params.userId })

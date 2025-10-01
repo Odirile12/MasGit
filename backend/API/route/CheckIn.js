@@ -4,7 +4,6 @@ const auth = require('../middleware/Auth');
 
 const router = express.Router();
 
-// Get checkins for a project
 router.get('/project/:projectId', auth, async (req, res) => {
   try {
     const checkins = await Checkin.find({ projectId: req.params.projectId })
@@ -17,7 +16,6 @@ router.get('/project/:projectId', auth, async (req, res) => {
   }
 });
 
-// Search checkins
 router.get('/search', auth, async (req, res) => {
   try {
     const { search, type, hashtags } = req.query;

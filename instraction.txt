@@ -1,2 +1,5 @@
 docker build -t u24699587 .
 docker run -p 3009:8080 u24699587
+
+
+

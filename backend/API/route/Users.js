@@ -48,6 +48,25 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
+router.post('/reject-friend/:id', auth, async (req, res) => {
+  try {
+    const friendId = req.params.id;
+    const currentUserId = req.user._id;
+
+    await User.findByIdAndUpdate(currentUserId, {
+      $pull: { 'friendRequests.received': friendId }
+    });
+
+    await User.findByIdAndUpdate(friendId, {
+      $pull: { 'friendRequests.sent': currentUserId }
+    });
+
+    res.json({ message: 'Friend request rejected' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Update user profile
 router.put('/profile', auth, async (req, res) => {
   try {
@@ -67,6 +86,7 @@ router.put('/profile', auth, async (req, res) => {
 
 // Send friend request
 router.post('/friend-request/:id', auth, async (req, res) => {
+  console.log(req.params.id)
   try {
     const targetUserId = req.params.id;
     const currentUserId = req.user._id;
@@ -77,20 +97,20 @@ router.post('/friend-request/:id', auth, async (req, res) => {
 
     const targetUser = await User.findById(targetUserId);
     if (!targetUser) {
-      return res.status(404).json({ message: 'User not found' });
+        console.log(targetUser)
+      return res.status(400).json({ message: 'all ready sent' });
     }
 
-    // Check if already friends
+    
+
     if (req.user.friends.includes(targetUserId)) {
       return res.status(400).json({ message: 'Already friends' });
     }
 
-    // Check if request already sent
     if (req.user.friendRequests.sent.includes(targetUserId)) {
       return res.status(400).json({ message: 'Friend request already sent' });
     }
 
-    // Add to sent requests and target user's received requests
     await User.findByIdAndUpdate(currentUserId, {
       $push: { 'friendRequests.sent': targetUserId }
     });
