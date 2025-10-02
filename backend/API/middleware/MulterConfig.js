@@ -2,10 +2,8 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Multer storage config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // Use a fallback folder if projectId isn't available yet
     const uploadPath = path.join(__dirname, '../uploads/projects/temp');
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });

@@ -1006,6 +1006,71 @@ router.get('/:id/files/:filename', auth, async (req, res) => {
   }
 });
 
+// save
+// PUT endpoint for updating/saving files
+router.put('/:id/files/:filename', auth, async (req, res) => {
+  try {
+    const { content } = req.body;
+    const project = await Project.findById(req.params.id);
+    
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    const userId = req.user._id.toString();
+    const isMember = project.members.some(m => m._id.toString() === userId);
+    const isOwner = project.owner.toString() === userId;
+
+    if (!isMember && !isOwner) {
+      return res.status(403).json({ message: 'Only members and owner can modify files' });
+    }
+
+    const projectDir = path.join(__dirname, '../../projects', req.params.id);
+    const filePath = path.join(projectDir, req.params.filename);
+
+    // Security: prevent path traversal
+    if (!filePath.startsWith(projectDir)) {
+      return res.status(403).json({ message: 'Invalid file path' });
+    }
+
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ message: 'File not found' });
+    }
+
+    // Save the file content
+    await fs.promises.writeFile(filePath, content || '', 'utf8');
+
+    // Update file metadata in project
+    const file = project.files.find(f => f.name === req.params.filename);
+    if (file) {
+      file.size = Buffer.from(content || '').length;
+      file.lastModified = new Date();
+      file.lastModifiedBy = req.user._id;
+    }
+
+    // Create activity for file modification
+    const activity = new Activity({
+      userId: req.user._id,
+      username: req.user.username,
+      userAvatar: req.user.avatar,
+      type: 'file_modified',
+      description: `modified file ${req.params.filename}`,
+      projectId: project._id,
+      projectName: project.name,
+      metadata: { filename: req.params.filename }
+    });
+    await activity.save();
+
+    await project.save();
+
+    res.json({ message: 'File saved successfully' });
+
+  } catch (error) {
+    console.error('Error saving file:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Create new file
 // Create new file - FIXED VERSION
 router.post('/:id/files', auth, async (req, res) => {

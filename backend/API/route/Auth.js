@@ -102,23 +102,8 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// router.get('/me', auth, async (req, res) => {
-//   console.log("Iwass called")
-//   res.json({
-//     user: {
-//       id: req.user._id,
-//       username: req.user.username,
-//       email: req.user.email,
-//       name: req.user.name,
-//       bio: req.user.bio,
-//       avatar: req.user.avatar
-//     }
-//   });
-// });
-
 router.get('/me', auth, async (req, res) => {
   try {
-    console.log("I was called")
     const user = await User.findById(req.user._id)
       .select('-password')
       .populate('friends', 'name username avatar')

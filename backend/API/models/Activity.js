@@ -26,6 +26,7 @@ const activitySchema = new mongoose.Schema({
       'commit',
       'branch_created',
       'merge',
+      'files_uploaded',
       'comment_added'
     ],
     required: true
