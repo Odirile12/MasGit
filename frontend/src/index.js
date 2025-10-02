@@ -9,6 +9,8 @@ import Login from "./Pages/Login"
 import SignIn from "./Pages/Signin"
 import Feed from "./Pages/Feed"
 import Profile from "./Pages/Profile"
+import FileViewer from './Pages/FileViewer';
+
 
 const root = createRoot(document.getElementById("root"));
 
@@ -57,6 +59,8 @@ root.render(
             <Route path="/Login" element={<Login />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/Feed" element={<Feed />} />
+            <Route path="/project/:projectId/file/:filename" element={<FileViewer />} />
+
             {/* <Route path="/posts/:id" element={<PostDetails />} /> */}
         </Routes>
     </BrowserRouter>

@@ -168,4 +168,23 @@ router.delete('/friend/:id', auth, async (req, res) => {
   }
 });
 
+router.get('/me', auth, async (req, res) => {
+  try {
+    console.log("I was called")
+    const user = await User.findById(req.user._id)
+      .select('-password')
+      .populate('friends', 'name username avatar')
+      .populate('projects', 'name title');
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching current user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 module.exports = router;

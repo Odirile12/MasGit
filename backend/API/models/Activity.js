@@ -10,10 +10,24 @@ const activitySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  userAvatar: String,
+  userAvatar: {
+    type: String,
+    default: ''
+  },
   type: {
     type: String,
-    enum: ['project_created', 'project_contributed', 'friend_added', 'project_updated'],
+    enum: [
+      'project_created',
+      'file_created',
+      'file_modified', 
+      'file_deleted',
+      'member_added',
+      'member_removed',
+      'commit',
+      'branch_created',
+      'merge',
+      'comment_added'
+    ],
     required: true
   },
   description: {
@@ -24,7 +38,9 @@ const activitySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
   },
-  projectName: String,
+  projectName: {
+    type: String
+  },
   metadata: {
     type: mongoose.Schema.Types.Mixed,
     default: {}
@@ -32,5 +48,9 @@ const activitySchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+// Index for better query performance
+activitySchema.index({ userId: 1, createdAt: -1 });
+activitySchema.index({ projectId: 1, createdAt: -1 });
 
 module.exports = mongoose.model('Activity', activitySchema);
