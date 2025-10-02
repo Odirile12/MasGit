@@ -10,6 +10,7 @@ import SignIn from "./Pages/Signin"
 import Feed from "./Pages/Feed"
 import Profile from "./Pages/Profile"
 import FileViewer from './Pages/FileViewer';
+// import Profile from "./Pages/Profile";
 
 
 const root = createRoot(document.getElementById("root"));
@@ -60,6 +61,7 @@ root.render(
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/Feed" element={<Feed />} />
             <Route path="/project/:projectId/file/:filename" element={<FileViewer />} />
+            <Route path="/profile" element={<Profile />} />
 
             {/* <Route path="/posts/:id" element={<PostDetails />} /> */}
         </Routes>

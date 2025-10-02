@@ -1,33 +1,50 @@
-# FROM node:22.9.0
+# FROM node:18-alpine
+
 # WORKDIR /app
 
-# COPY package*.json ./
+# # Copy package files
+# COPY frontend/package*.json ./
+
+# # Install dependencies
 # RUN npm install
 
-# COPY frontend/ .
-# EXPOSE 3000
-# CMD ["npm", "start"]
+# # Copy frontend source code
+# COPY frontend/ ./
 
+# # Create public directory and index.html if it doesn't exist
+# RUN mkdir -p public && \
+#     echo '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>React App</title></head><body><div id="root"></div></body></html>' > public/index.html
 
-FROM node:22.9.0
+# # Build the app
+# RUN npm run build
+
+# # Install a simple HTTP server to serve the static content
+# RUN npm install -g serve
+
+# # Expose port 8080
+# EXPOSE 8080
+
+# # Start the server
+# CMD ["serve", "-s", "build", "-l", "8080"]
+
+FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package files
+# Copy root package files (shared dependencies)
 COPY package*.json ./
 
-# Install dependencies
+# Install all dependencies
 RUN npm install
 
-# Copy webpack config and babel config from root
+# Copy webpack config
 COPY webpack.config.js ./
-COPY .babelrc ./
 
 # Copy frontend source code
-COPY frontend/ ./
+COPY frontend/ ./frontend/
 
-# Expose port
+# Expose port 8080
 EXPOSE 8080
 
-# Start the development server
+# Start webpack dev server
 CMD ["npm", "start"]

@@ -1,27 +1,67 @@
-import SearchBar from './searchBar';
-import Filter from './Filter';
-import { Link} from "react-router";
-import { User} from 'lucide-react';
-import React from 'react';
+import React from "react";
+import { Link, useNavigate } from "react-router";
+import { Home, User, LogOut, Settings } from "lucide-react";
 
-const Nav=({name,lik})=>{
-    return(
-          <div className="flex items-center justify-between px-4 py-2 bg-gray-800 w-[85%] rounded-2xl shadow-md border border-gray-700">
-        <div className="flex items-center gap-6">
-          <h1 className="text-2xl font-bold tracking-wide text-white">{name} |</h1>
-          {lik||""}
-        </div>
-        
-        <SearchBar />
-        
-        <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:ring-2 hover:ring-indigo-500 transition">
-          <Link to="../profile">
-            <User size={18} className="text-white" />
+const Nevigat = ({ name, lik }) => {
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    navigate("/login");
+  };
+
+  const getAuthToken = () => {
+    return localStorage.getItem("token") || sessionStorage.getItem("token");
+  };
+
+  return (
+    <nav className="w-full max-w-7xl mx-auto">
+      <div className="flex items-center justify-between">
+        {/* Left side - Brand/Name */}
+        <div className="flex items-center gap-4">
+          <Link 
+            to="/Feed" 
+            className="text-xl font-bold text-white hover:text-blue-400 transition-colors"
+          >
+            {name || "CodeCollab"}
           </Link>
+          {lik && <div className="text-gray-300">{lik}</div>}
+        </div>
+
+        {/* Right side - Navigation Links */}
+        <div className="flex items-center gap-4">
+          {/* Home/Feed Link */}
+          <Link
+            to="/Feed"
+            className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+          >
+            <Home size={18} />
+            <span>Feed</span>
+          </Link>
+
+          {/* Profile Link */}
+          <Link
+            to="/profile"
+            className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+          >
+            <User size={18} />
+            <span>Profile</span>
+          </Link>
+
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-red-400 hover:bg-gray-700 rounded-md transition-colors"
+          >
+            <LogOut size={18} />
+            <span>Logout</span>
+          </button>
         </div>
       </div>
-    )
-    
-}
+    </nav>
+  );
+};
 
-export default Nav
+export default Nevigat;
