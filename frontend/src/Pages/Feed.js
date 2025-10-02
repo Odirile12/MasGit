@@ -20,11 +20,10 @@ const GitHubFeed = () => {
                 return;
             }
 
-            // Create query parameters correctly
             const params = new URLSearchParams();
             
-            if (filter) params.append('filter', filter); // 'Local' or 'Global'
-            if (sortBy) params.append('sortBy', sortBy); // 'Recent' or 'Popular'
+            if (filter) params.append('filter', filter);
+            if (sortBy) params.append('sortBy', sortBy);
             
             const url = `http://localhost:5000/api/projects${params.toString() ? '?' + params.toString() : ''}`;
 
