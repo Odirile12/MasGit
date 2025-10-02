@@ -7,6 +7,7 @@ import EditProfile from "../components/Profile/EditProfile";
 import CreateProject from "../components/Profile/CreateProject";
 import ProjectsList from "../components/Profile/ProjectsList";
 import Profile from "../components/Profile/Profile";
+import Nevigat from "../components/header/Nav";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -54,7 +55,6 @@ const ProfilePage = () => {
         throw new Error('User ID not found. Please login again.');
       }
 
-      // Fetch user profile
       const userResponse = await fetch(`http://localhost:5000/api/users/${userInfo.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -72,7 +72,6 @@ const ProfilePage = () => {
       const userData = await userResponse.json();
       setUser(userData);
 
-      // Fetch friend request details
       if (userData.friendRequests?.received?.length > 0) {
         const requestDetails = await Promise.all(
           userData.friendRequests.received.map(async (userId) => {
@@ -102,18 +101,15 @@ const ProfilePage = () => {
     }
   };
 
-  // Handle project creation - this updates the local state after successful backend creation
   const handleProjectCreate = (newProject) => {
     console.log('New project created:', newProject);
     
-    // Add the new project to the user's projects list
     setUser(prevUser => ({
       ...prevUser,
       projects: [...(prevUser.projects || []), newProject]
     }));
   };
 
-  // Handle project deletion
   const handleProjectDelete = (deletedProjectId) => {
     console.log('Project deleted:', deletedProjectId);
     
@@ -242,6 +238,10 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
+          <header className="px-6 py-4 border-b border-gray-700">
+            <Nevigat name="Profile" />
+          </header>
+          <br></br>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left Column */}

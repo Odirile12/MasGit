@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { 
   ArrowLeft, 
   Save, 
@@ -9,7 +9,9 @@ import {
   FileText, 
   Code,
   Copy,
-  Check
+  Check,
+  Home,
+  User
 } from "lucide-react";
 
 const FileViewer = () => {
@@ -28,6 +30,21 @@ const FileViewer = () => {
 
   const getAuthToken = () => {
     return localStorage.getItem('token') || sessionStorage.getItem('token');
+  };
+
+  // Add navigation functions
+  const handleGoToFeed = () => {
+    navigate("/Feed");
+  };
+
+  const handleGoToProfile = () => {
+    navigate("/profile");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -207,6 +224,35 @@ const FileViewer = () => {
       {/* Header */}
       <div className="bg-gray-800 border-b border-gray-700 px-6 py-4">
         <div className="max-w-7xl mx-auto">
+          {/* Top Navigation Bar */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handleGoToFeed}
+                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+              >
+                <Home size={18} />
+                <span>Feed</span>
+              </button>
+              
+              <button
+                onClick={handleGoToProfile}
+                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+              >
+                <User size={18} />
+                <span>Profile</span>
+              </button>
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="px-3 py-2 text-gray-300 hover:text-red-400 hover:bg-gray-700 rounded-md transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+
+          {/* File Navigation */}
           <div className="flex items-center justify-between mb-3">
             <button
               onClick={() => navigate(`/project/${projectId}`)}
@@ -284,6 +330,9 @@ const FileViewer = () => {
           )}
         </div>
       </div>
+
+
+
 
       {/* File Content */}
       <div className="max-w-7xl mx-auto px-6 py-6">

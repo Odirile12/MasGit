@@ -3,3 +3,9 @@ docker run -p 3009:8080 u24699587
 
 
 
+docker-compose up
+
+
+// johndoe / john.doe@example.com / password123
+// jansmith / jane.smith@example.com / password456
+// mikejohnson / mike.johnson@example.com / password789

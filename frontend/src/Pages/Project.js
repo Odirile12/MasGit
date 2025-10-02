@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Nevigat from "../components/header/Nav";
 import { Link, useParams } from "react-router";
@@ -14,11 +13,15 @@ const ProjectPage = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
   const [isMember, setIsMember] = useState(false);
-  // const [currentUserId, setCurrentUserId] = useState(null);
 
   const fetchProject = async () => {
     try {
       const TOKEN = localStorage.getItem("token") || sessionStorage.getItem("token");
+      
+      if (!TOKEN) {
+        navigate("/login");
+        return;
+      }
 
       const response = await fetch(
         `http://localhost:5000/api/projects/${id}`,
@@ -34,9 +37,6 @@ const ProjectPage = () => {
       if (!response.ok) {
         throw new Error("Failed to fetch project");
       }
-
-
-      
 
       const data = await response.json(); 
       console.log("Fetched project:", data);
@@ -103,7 +103,7 @@ const ProjectPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <header className="px-6 py-4 flex flex-col items-center gap-3">
+      <header className="px-6 py-4 border-b border-gray-700">
         <Nevigat
           name="Project"
           lik={
@@ -120,9 +120,13 @@ const ProjectPage = () => {
       <main className="px-6 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           <div className="space-y-6 lg:col-span-1">
-            <Project project={project} currentUserId={currentUserId}/>
+            <Project project={project} currentUserId={currentUserId} />
             {(isOwner || isMember) && (
-              <EditProject project={project} currentUserId={currentUserId} onSave={setProject} />
+              <EditProject 
+                project={project} 
+                onSave={setProject} 
+                currentUserId={currentUserId}
+              />
             )}
           </div>
 
@@ -132,6 +136,7 @@ const ProjectPage = () => {
               projectId={id}
               isOwner={isOwner}
               isMember={isMember}
+              currentUserId={currentUserId}
             />
             <Messages messages={project.messages || []} />
           </div>
@@ -142,3 +147,7 @@ const ProjectPage = () => {
 };
 
 export default ProjectPage;
+
+// johndoe / john.doe@example.com / password123
+// jansmith / jane.smith@example.com / password456
+// mikejohnson / mike.johnson@example.com / password789

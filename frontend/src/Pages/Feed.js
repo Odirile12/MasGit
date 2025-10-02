@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { User } from 'lucide-react';
-import { Link } from "react-router";
+import { User, Home, LogOut, Settings } from 'lucide-react';
+import { Link, useNavigate } from "react-router";
 import Header from '../components/header/header';
 import ProjectList from '../components/Project/ProjectList';
 
@@ -8,11 +8,23 @@ const GitHubFeed = () => {
     const [projects, setProjects] = useState([]);
     const [sortBy, setSortBy] = useState('Recent');
     const [filter, setFilter] = useState('Local');
+    const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
 
     const getAuthToken = () => {
         return localStorage.getItem('token') || sessionStorage.getItem('token');
     };
-  
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
+        navigate("/login");
+    };
+
+    const handleGoToProfile = () => {
+        navigate("/profile");
+    };
+
     const fetchProjects = async () => {
         try {
             const token = getAuthToken();
@@ -24,6 +36,7 @@ const GitHubFeed = () => {
             
             if (filter) params.append('filter', filter);
             if (sortBy) params.append('sortBy', sortBy);
+            if (searchQuery) params.append('search', searchQuery);
             
             const url = `http://localhost:5000/api/projects${params.toString() ? '?' + params.toString() : ''}`;
 
@@ -51,25 +64,77 @@ const GitHubFeed = () => {
         }
     };
 
-    // Refetch projects whenever sortBy or filter changes
     useEffect(() => {
         const loadProjects = async () => {
             const result = await fetchProjects();
             setProjects(result || []);
         };
-        loadProjects();
-    }, [sortBy, filter]); // Added dependencies here
+        
+        const timeoutId = setTimeout(() => {
+            loadProjects();
+        }, 300);
+
+        return () => clearTimeout(timeoutId);
+    }, [sortBy, filter, searchQuery]);
+
+    const handleSearchChange = (query) => {
+        setSearchQuery(query);
+    };
 
     return (
         <div className="min-h-screen bg-gray-900 backdrop-blur-sm text-white">
+            {/* Enhanced Header with Profile Navigation */}
+            <div className="bg-gray-800 border-b border-gray-700 px-6 py-4">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex items-center justify-between">
+                        {/* Left side - Brand/Title */}
+                        <div className="flex items-center gap-4">
+                            <h1 className="text-xl font-bold text-white">
+                                CodeCollab Feed
+                            </h1>
+                        </div>
+
+                        {/* Right side - Navigation Links */}
+                        <div className="flex items-center gap-4">
+                            {/* Home/Feed Link (current page) */}
+                            <div className="flex items-center gap-2 px-3 py-2 text-white bg-gray-700 rounded-md">
+                                <Home size={18} />
+                                <span>Feed</span>
+                            </div>
+
+                            {/* Profile Link */}
+                            <button
+                                onClick={handleGoToProfile}
+                                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+                            >
+                                <User size={18} />
+                                <span>Profile</span>
+                            </button>
+
+
+                            {/* Logout Button */}
+                            <button
+                                onClick={handleLogout}
+                                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-red-400 hover:bg-gray-700 rounded-md transition-colors"
+                            >
+                                <LogOut size={18} />
+                                <span>Logout</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Filters and Search Header */}
             <Header 
                 name="Feed"
                 sortBy={sortBy} 
                 filter={filter} 
                 onSortChange={setSortBy}
                 onFilterChange={setFilter}
+                onSearchChange={handleSearchChange}
+                searchQuery={searchQuery}
             />
-            
             
             <main className="px-6 py-6">
                 <ProjectList projects={projects} />
