@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from "react";
-import { User, Edit3, Plus, Users } from "lucide-react";
+import { User, Edit3, Plus, Users, AlertCircle } from "lucide-react";
 
 import Friends from "../components/Profile/Friends";
 import EditProfile from "../components/Profile/EditProfile";
@@ -13,24 +14,13 @@ const ProfilePage = () => {
     username: "",
     bio: "",
     avatar: "",
-    project: []
+    friends: [],
+    friendRequests: { received: [], sent: [] },
+    projects: []
   });
 
-  const [projects, setProjects] = useState([
-    { id: 1, name: "Student Portal", description: "React + Node.js app" },
-    { id: 2, name: "ML Tool", description: "Machine learning toolkit" },
-  ]);
-
-  const [projects2, setProjects2] = useState([]);
-
-  const handleProjectDelete = (deletedProjectId) => {
-  setProjects2(prevProjects => 
-    prevProjects.filter(project => project._id !== deletedProjectId)
-  );
-};
-
-  const [data, setData] = useState(null);
-  const [details, setDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [friendRequestsDetails, setFriendRequestsDetails] = useState({ received: [] });
 
   const getAuthToken = () => {
@@ -38,27 +28,34 @@ const ProfilePage = () => {
   };
 
   const getAuthUserId = () => {
-    let UserId = localStorage.getItem('user') || sessionStorage.getItem('user');
-    console.log(UserId);
-    return JSON.parse(UserId);
+    const userStr = localStorage.getItem('user') || sessionStorage.getItem('user');
+    if (!userStr) return null;
+    try {
+      return JSON.parse(userStr);
+    } catch (err) {
+      console.error('Error parsing user data:', err);
+      return null;
+    }
   };
 
   // Fetch user data
   const fetchUserData = async () => {
     try {
+      setLoading(true);
+      setError(null);
+
       const token = getAuthToken();
       if (!token) {
-        console.error('Authentication required');
-        return;
+        throw new Error('Authentication required. Please login.');
       }
-      const userId = getAuthUserId().id;
-      if (!userId) {
-        console.error('User ID not found');
-        return;
+
+      const userInfo = getAuthUserId();
+      if (!userInfo?.id) {
+        throw new Error('User ID not found. Please login again.');
       }
 
       // Fetch user profile
-      const userResponse = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      const userResponse = await fetch(`http://localhost:5000/api/users/${userInfo.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -66,12 +63,14 @@ const ProfilePage = () => {
       });
 
       if (!userResponse.ok) {
+        if (userResponse.status === 401) {
+          throw new Error('Session expired. Please login again.');
+        }
         throw new Error('Failed to fetch user data');
       }
 
       const userData = await userResponse.json();
       setUser(userData);
-      setDetails(userData);
 
       // Fetch friend request details
       if (userData.friendRequests?.received?.length > 0) {
@@ -95,24 +94,33 @@ const ProfilePage = () => {
         setFriendRequestsDetails({ received: [] });
       }
 
-      // Fetch user activities
-      const activitiesResponse = await fetch(`http://localhost:5000/api/activities/user/${userId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (activitiesResponse.ok) {
-        const activitiesData = await activitiesResponse.json();
-        return activitiesData;
-      } else {
-        throw new Error('Failed to fetch user activities');
-      }
-
+      setLoading(false);
     } catch (err) {
       console.error('Error fetching user data:', err);
+      setError(err.message);
+      setLoading(false);
     }
+  };
+
+  // Handle project creation - this updates the local state after successful backend creation
+  const handleProjectCreate = (newProject) => {
+    console.log('New project created:', newProject);
+    
+    // Add the new project to the user's projects list
+    setUser(prevUser => ({
+      ...prevUser,
+      projects: [...(prevUser.projects || []), newProject]
+    }));
+  };
+
+  // Handle project deletion
+  const handleProjectDelete = (deletedProjectId) => {
+    console.log('Project deleted:', deletedProjectId);
+    
+    setUser(prevUser => ({
+      ...prevUser,
+      projects: prevUser.projects.filter(project => project._id !== deletedProjectId)
+    }));
   };
 
   const handleAcceptRequest = async (userId) => {
@@ -135,7 +143,7 @@ const ProfilePage = () => {
       
     } catch (error) {
       console.error('Error accepting request:', error);
-      alert('Failed to accept friend request');
+      alert('Failed to accept friend request: ' + error.message);
     }
   };
 
@@ -159,7 +167,7 @@ const ProfilePage = () => {
       
     } catch (error) {
       console.error('Error rejecting request:', error);
-      alert('Failed to reject friend request');
+      alert('Failed to reject friend request: ' + error.message);
     }
   };
 
@@ -183,53 +191,82 @@ const ProfilePage = () => {
       
     } catch (error) {
       console.error('Error removing friend:', error);
-      alert('Failed to remove friend');
+      alert('Failed to remove friend: ' + error.message);
     }
   };
 
+  // Handle profile update
+  const handleProfileUpdate = (updatedUser) => {
+    setUser(prevUser => ({
+      ...prevUser,
+      ...updatedUser
+    }));
+  };
+
   useEffect(() => {
-    const loadUserData = async () => {
-      const result = await fetchUserData();
-      console.log("User Activities: ", result);
-      setData(result);
-    };
-    loadUserData();
+    fetchUserData();
   }, []);
 
-  useEffect(() => {
-    if (details) {
-      console.log("Updated User Details: ", details);
-      setUser(details);
-    }
-  }, [details]);
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-500 mx-auto mb-4"></div>
+          <p className="text-gray-400">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
 
-  console.log("Profile User: ", user?.friends?.[0]);
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-6">
+        <div className="bg-red-900/20 border border-red-500 rounded-lg p-6 max-w-md">
+          <div className="flex items-center gap-3 mb-3">
+            <AlertCircle className="text-red-500" size={24} />
+            <h2 className="text-xl font-semibold text-red-400">Error Loading Profile</h2>
+          </div>
+          <p className="text-gray-300 mb-4">{error}</p>
+          <button
+            onClick={fetchUserData}
+            className="bg-indigo-600 hover:bg-indigo-500 px-4 py-2 rounded-md transition"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white p-6">
-      <div className="flex flex-col md:flex-row gap-6">
-        {console.log("project details" + JSON.stringify(details?.projects[0]))}
-        <div className="flex-1 space-y-6">
-          <Profile user={user} />
-          <EditProfile user={user} onSave={setUser} />
-        </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Left Column */}
+          <div className="space-y-6">
+            <Profile user={user} />
+            <EditProfile user={user} onSave={handleProfileUpdate} />
+          </div>
 
-        <div className="flex-1 space-y-6">
-          <ProjectsList projects={details?.projects} onProjectDelete={handleProjectDelete}/>
+          {/* Right Column */}
+          <div className="space-y-6">
+            <ProjectsList 
+              projects={user?.projects || []} 
+              onProjectDelete={handleProjectDelete}
+            />
 
-          <Friends 
-            friends={user?.friends} 
-            friendRequests={friendRequestsDetails}
-            onAcceptRequest={handleAcceptRequest}
-            onRejectRequest={handleRejectRequest}
-            onRemoveFriend={handleRemoveFriend}
-          />
-          
-          <CreateProject
-            onCreate={(newProject) =>
-              setProjects([...projects, { ...newProject, id: Date.now() }])
-            }
-          />
+            <Friends 
+              friends={user?.friends || []} 
+              friendRequests={friendRequestsDetails}
+              onAcceptRequest={handleAcceptRequest}
+              onRejectRequest={handleRejectRequest}
+              onRemoveFriend={handleRemoveFriend}
+            />
+            
+            <CreateProject onCreate={handleProjectCreate} />
+          </div>
         </div>
       </div>
     </div>
