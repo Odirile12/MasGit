@@ -6,3 +6,4 @@ const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_SECRET}
 mongoose.connect(uri);
 const db = mongoose.connection
 module.exports = db;
+

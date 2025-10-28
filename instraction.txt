@@ -9,3 +9,8 @@ docker-compose up
 // johndoe / john.doe@example.com / password123
 // jansmith / jane.smith@example.com / password456
 // mikejohnson / mike.johnson@example.com / password789
+Odi / odimas@gmail.com/NkosiM39@29Ve
+admin@example.com
+Ve / veplus@gmail.co.za /MasaNkosa#03
+
+https://github.com/Odirile12/MasGit

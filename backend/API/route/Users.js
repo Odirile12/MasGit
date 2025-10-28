@@ -71,7 +71,7 @@ router.post('/reject-friend/:id', auth, async (req, res) => {
 router.put('/profile', auth, async (req, res) => {
   try {
     const { name, bio } = req.body;
-    
+
     const user = await User.findByIdAndUpdate(
       req.user._id,
       { name, bio },
@@ -79,6 +79,55 @@ router.put('/profile', auth, async (req, res) => {
     ).select('-password');
 
     res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Admin: Update any user profile
+router.put('/:id/profile', auth, async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Admin access required' });
+    }
+
+    const { name, bio, email, username } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { name, bio, email, username },
+      { new: true }
+    ).select('-password');
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Admin: Delete any user account
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Admin access required' });
+    }
+
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Prevent admin from deleting themselves
+    if (user._id.toString() === req.user._id.toString()) {
+      return res.status(400).json({ message: 'Cannot delete your own account' });
+    }
+
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: 'User account deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }

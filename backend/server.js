@@ -30,7 +30,6 @@ app.use('/api/projects',projectRout)
 app.use('/api/checkins',checkinRout)
 app.use('/api/activities',activityRout)
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

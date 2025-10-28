@@ -57,9 +57,7 @@ export default function GeometricSignInForm({ onAuthSuccess }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      {/* Form Container with backdrop filter */}
-      <div className="w-full max-w-md px-8 py-12 backdrop-blur-sm bg-black/30  border border-white/10">
+    <div className="w-full max-w-md px-8 py-12 backdrop-blur-sm bg-black/30  border border-white/10">
         <div className="space-y-8">
 
           {/* Email Field */}
@@ -131,6 +129,5 @@ export default function GeometricSignInForm({ onAuthSuccess }) {
         
         </div>
       </div>
-    </div>
   );
 }
