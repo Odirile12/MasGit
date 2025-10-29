@@ -105,8 +105,7 @@ export default function SignUpForm({ onAuthSuccess }) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-md px-8 py-12 backdrop-blur-sm bg-black/30 border border-white/10">
+    <div className="w-full max-w-md px-8 py-12 backdrop-blur-sm bg-black/30 border border-white/10">
         <div className="space-y-8">
 
           {/* Username Field */}
@@ -227,6 +226,5 @@ export default function SignUpForm({ onAuthSuccess }) {
 
         </div>
       </div>
-    </div>
   );
 }

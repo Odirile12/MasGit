@@ -17,6 +17,7 @@ app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const authRout=require('./API/route/Auth')
 const userRout=require('./API/route/Users')
@@ -30,7 +31,6 @@ app.use('/api/projects',projectRout)
 app.use('/api/checkins',checkinRout)
 app.use('/api/activities',activityRout)
 
-// Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

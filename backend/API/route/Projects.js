@@ -213,12 +213,13 @@ router.post('/', upload.single('image'), auth, async (req, res) => {
 router.put('/:id', auth, async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
-    
+
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
 
-    if (project.owner.toString() !== req.user._id.toString()) {
+    // Allow admins to edit any project, or owners to edit their own projects
+    if (req.user.role !== 'admin' && project.owner.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Not authorized to update this project' });
     }
 
@@ -244,7 +245,8 @@ router.delete('/:id', auth, async (req, res) => {
       return res.status(404).json({ message: 'Project not found' });
     }
 
-    if (project.owner.toString() !== req.user._id.toString()) {
+    // Allow admins to delete any project, or owners to delete their own projects
+    if (req.user.role !== 'admin' && project.owner.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Not authorized to delete this project' });
     }
 

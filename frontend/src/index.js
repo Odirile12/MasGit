@@ -1,4 +1,3 @@
-
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, createBrowserRouter,RouterProvider } from "react-router";
@@ -9,44 +8,15 @@ import Login from "./Pages/Login"
 import SignIn from "./Pages/Signin"
 import Feed from "./Pages/Feed"
 import Profile from "./Pages/Profile"
+import Admin from "./Pages/Admin"
+import AdminLogin from "./Pages/AdminLogin"
+import AdminSignup from "./Pages/AdminSignup"
 import FileViewer from './Pages/FileViewer';
 // import Profile from "./Pages/Profile";
 
 
 const root = createRoot(document.getElementById("root"));
-
-// const router = createBrowserRouter([
-//     {
-//         path:"/Profile",
-//         element: <Profile/>
-//     },
-//     {
-//         path:"/Feed",
-//         element: <Feed/>
-//     },
-//     {
-//          path: "/Login",
-//         element:<Login/>
-//     },
-//     {
-//         path: "/SignIn",
-//         element:<SignIn/>
-//     },
-//     {
-//         path: "/",
-//         element:<Spash/>
-//     },
-//     {
-//         path: "/Project",
-//         element: <Project />,
-//     },
-//     { 
-//         path: "/posts",
-//         element: <Posts />,
-//     },
-    
-// ]);
-
+// ADMIN2024
 
 root.render(
     
@@ -57,9 +27,12 @@ root.render(
             <Route path="/Profile" element={<Profile />} />
             <Route path="/" element={<Spash />} />
             <Route path="/Project/:id" element={<Project />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/SignIn" element={<SignIn />} />
+            <Route path="/Login" element={<Spash />} />
+            <Route path="/SignIn" element={<Spash />} />
             <Route path="/Feed" element={<Feed />} />
+            <Route path="/Admin" element={<Admin />} />
+            <Route path="/AdminLogin" element={<AdminLogin />} />
+            <Route path="/AdminSignup" element={<AdminSignup />} />
             <Route path="/project/:projectId/file/:filename" element={<FileViewer />} />
             <Route path="/profile" element={<Profile />} />
 
@@ -69,15 +42,3 @@ root.render(
         </div>
 
 );
-
-
-
-
-
-
-
-
-
-
-
-

