@@ -34,9 +34,7 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: function() {
-      return this.name.split(' ').map(n => n[0]).join('').toUpperCase();
-    }
+    default: null
   },
   friends: [{
     type: mongoose.Schema.Types.ObjectId,

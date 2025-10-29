@@ -1,8 +1,35 @@
 const express = require('express');
 const User = require('../models/User');
 const auth = require('../middleware/Auth');
+const multer = require('multer');
+const path = require('path');
 
 const router = express.Router();
+
+// Configure multer for avatar uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'backend/uploads/avatars/');
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'avatar-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed!'), false);
+    }
+  }
+});
 
 // Get all users (for search)
 router.get('/', auth, async (req, res) => {
@@ -67,19 +94,38 @@ router.post('/reject-friend/:id', auth, async (req, res) => {
   }
 });
 
-// Update user profile
-router.put('/profile', auth, async (req, res) => {
+// Update user profile with avatar upload
+router.put('/profile', auth, upload.single('avatar'), async (req, res) => {
   try {
-    const { name, bio } = req.body;
+    const { name, bio, username } = req.body;
+
+    // Check if username is already taken by another user
+    if (username) {
+      const existingUser = await User.findOne({
+        username,
+        _id: { $ne: req.user._id }
+      });
+      if (existingUser) {
+        return res.status(400).json({ message: 'Username already taken' });
+      }
+    }
+
+    const updateData = { name, bio, username };
+
+    // Handle avatar upload
+    if (req.file) {
+      updateData.avatar = `/uploads/avatars/${req.file.filename}`;
+    }
 
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      { name, bio },
+      updateData,
       { new: true }
     ).select('-password');
 
     res.json(user);
   } catch (error) {
+    console.error('Profile update error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -150,7 +196,7 @@ router.post('/friend-request/:id', auth, async (req, res) => {
       return res.status(400).json({ message: 'all ready sent' });
     }
 
-    
+
 
     if (req.user.friends.includes(targetUserId)) {
       return res.status(400).json({ message: 'Already friends' });
@@ -224,7 +270,7 @@ router.get('/me', auth, async (req, res) => {
       .select('-password')
       .populate('friends', 'name username avatar')
       .populate('projects', 'name title');
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
