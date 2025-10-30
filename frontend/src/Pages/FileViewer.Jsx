@@ -33,7 +33,6 @@ const FileViewer = () => {
     return localStorage.getItem('token') || sessionStorage.getItem('token');
   };
 
-  // Add navigation functions
   const handleGoToFeed = () => {
     navigate("/Feed");
   };
@@ -72,7 +71,6 @@ const FileViewer = () => {
       const data = await response.json();
       setProject(data);
 
-      // Check permissions
       const userResponse = await fetch("http://localhost:5000/api/auth/me", {
         method: "GET",
         headers: {

@@ -16,7 +16,7 @@ export default function AdminSignupForm({ onAuthSuccess }) {
     email: '',
     password: '',
     confirm: '',
-    adminCode: '' // Special code to verify admin creation
+    adminCode: ''
   });
 
   const [focusedField, setFocusedField] = useState('');

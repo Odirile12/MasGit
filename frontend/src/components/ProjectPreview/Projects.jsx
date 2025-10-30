@@ -1,11 +1,17 @@
 // 52_Masanabo
 import React, { useState, useEffect } from "react";
-import { CheckCircle, Clock, Users, Lock, Unlock, UserPlus, UserCheck, UserX } from "lucide-react";
+import { CheckCircle, Clock, Users, Lock, Unlock, UserPlus, UserCheck, UserX, Search, X, Plus } from "lucide-react";
 
 const Project = ({ project, currentUserId }) => {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [friendStatus, setFriendStatus] = useState('none'); 
+  const [friendStatus, setFriendStatus] = useState('none');
   const [isLoadingFriendStatus, setIsLoadingFriendStatus] = useState(false);
+  const [showMemberManagement, setShowMemberManagement] = useState(false);
+  const [friends, setFriends] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoadingFriends, setIsLoadingFriends] = useState(false);
+  const [isAddingMember, setIsAddingMember] = useState(false);
+  const [isRemovingMember, setIsRemovingMember] = useState(false);
 
   useEffect(() => {
     if (currentUserId && project.owner && project.owner._id !== currentUserId) {
@@ -127,7 +133,7 @@ const Project = ({ project, currentUserId }) => {
   const handleRemoveFriend = async () => {
     try {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-      
+
       const response = await fetch(`http://localhost:5000/api/users/friend/${project.owner._id}`, {
         method: 'DELETE',
         headers: {
@@ -148,6 +154,103 @@ const Project = ({ project, currentUserId }) => {
       alert('Failed to remove friend: ' + error.message);
     }
   };
+
+  const loadFriends = async () => {
+    try {
+      setIsLoadingFriends(true);
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+      const response = await fetch(`http://localhost:5000/api/users/me`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        setFriends(userData.friends || []);
+      }
+    } catch (error) {
+      console.error('Error loading friends:', error);
+    } finally {
+      setIsLoadingFriends(false);
+    }
+  };
+
+  const handleAddMember = async (friendId) => {
+    try {
+      setIsAddingMember(true);
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+      const response = await fetch(`http://localhost:5000/api/projects/${project._id}/members`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: friendId })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to add member');
+      }
+
+      alert('Member added successfully!');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error adding member:', error);
+      alert('Failed to add member: ' + error.message);
+    } finally {
+      setIsAddingMember(false);
+    }
+  };
+
+  const handleRemoveMember = async (memberId) => {
+    try {
+      setIsRemovingMember(true);
+      const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+
+      const response = await fetch(`http://localhost:5000/api/projects/${project._id}/members/${memberId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to remove member');
+      }
+
+      alert('Member removed successfully!');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error removing member:', error);
+      alert('Failed to remove member: ' + error.message);
+    } finally {
+      setIsRemovingMember(false);
+    }
+  };
+
+  const toggleMemberManagement = () => {
+    setShowMemberManagement(!showMemberManagement);
+    if (!showMemberManagement && friends.length === 0) {
+      loadFriends();
+    }
+  };
+
+  const filteredFriends = friends.filter(friend =>
+    friend.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    friend.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const availableFriends = filteredFriends.filter(friend =>
+    !project.members.some(member => member._id === friend._id)
+  );
 
   const isCheckedOut = project.checkedOutBy && project.checkedOutBy._id;
   const isOwner = currentUserId && project.owner && project.owner._id === currentUserId;
@@ -240,24 +343,111 @@ const Project = ({ project, currentUserId }) => {
 
       {/* Project Members */}
       {project.members && project.members.length > 0 && (
-        <div className="mb-4-3 bg-gray-700 rounded-lg">
-          <div className="flex items-center gap-2 mb-2">
-            <Users size={16} className="text-gray-400" />
-            <span className="text-gray-300 font-medium">Project Members</span>
-            <span className="text-gray-500 text-sm">({project.members.length})</span>
+        <div className="mb-4 bg-gray-700 rounded-lg">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <Users size={16} className="text-gray-400" />
+              <span className="text-gray-300 font-medium">Project Members</span>
+              <span className="text-gray-500 text-sm">({project.members.length})</span>
+            </div>
+            {isOwner && (
+              <button
+                onClick={toggleMemberManagement}
+                className="flex items-center gap-2 px-3 py-1 bg-blue-600 hover:bg-blue-500 rounded-md transition text-sm"
+              >
+                <Plus size={14} />
+                <span>Manage</span>
+              </button>
+            )}
           </div>
-          <div className="flex  flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {project.members.map((member, index) => (
               <div key={index} className="flex items-center gap-2 px-2 py-1 bg-gray-600 rounded-md">
-                <img 
-                  src={member.avatar || "/default-avatar.png"} 
+                <img
+                  src={member.avatar || "/default-avatar.png"}
                   alt={member.name}
                   className="w-6 h-6 rounded-full"
                 />
                 <span className="text-white text-sm">{member.name}</span>
+                {isOwner && member._id !== currentUserId && (
+                  <button
+                    onClick={() => handleRemoveMember(member._id)}
+                    disabled={isRemovingMember}
+                    className="text-red-400 hover:text-red-300 transition ml-1"
+                    title="Remove member"
+                  >
+                    <X size={14} />
+                  </button>
+                )}
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Member Management Section */}
+      {isOwner && showMemberManagement && (
+        <div className="mb-4 p-4 bg-gray-700 rounded-lg border border-gray-600">
+          <h3 className="text-lg font-semibold text-white mb-3">Manage Members</h3>
+
+          {/* Search Friends */}
+          <div className="mb-4">
+            <div className="relative">
+              <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search friends..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 bg-gray-600 border border-gray-500 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+
+          {/* Available Friends */}
+          <div className="mb-4">
+            <h4 className="text-gray-300 font-medium mb-2">Add Friends as Members</h4>
+            {isLoadingFriends ? (
+              <div className="text-gray-400 text-sm">Loading friends...</div>
+            ) : availableFriends.length > 0 ? (
+              <div className="space-y-2 max-h-40 overflow-y-auto">
+                {availableFriends.map((friend) => (
+                  <div key={friend._id} className="flex items-center justify-between p-2 bg-gray-600 rounded-md">
+                    <div className="flex items-center gap-2">
+                      <img
+                        src={friend.avatar || "/default-avatar.png"}
+                        alt={friend.name}
+                        className="w-8 h-8 rounded-full"
+                      />
+                      <div>
+                        <span className="text-white text-sm font-medium">{friend.name}</span>
+                        <span className="text-gray-400 text-xs block">@{friend.username}</span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleAddMember(friend._id)}
+                      disabled={isAddingMember}
+                      className="flex items-center gap-1 px-3 py-1 bg-green-600 hover:bg-green-500 rounded-md transition text-sm disabled:opacity-50"
+                    >
+                      <Plus size={14} />
+                      <span>Add</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-gray-400 text-sm">
+                {friends.length === 0 ? 'No friends found.' : 'All your friends are already members.'}
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={toggleMemberManagement}
+            className="w-full px-4 py-2 bg-gray-600 hover:bg-gray-500 rounded-md transition text-sm"
+          >
+            Close Management
+          </button>
         </div>
       )}
 

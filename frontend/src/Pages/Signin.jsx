@@ -109,7 +109,6 @@ export default function SignUpForm({ onAuthSuccess }) {
     <div className="w-full max-w-md px-8 py-12 backdrop-blur-sm bg-black/30 border border-white/10">
         <div className="space-y-8">
 
-          {/* Username Field */}
           <div className="relative">
             <label 
               className={`absolute left-0 transition-all duration-300 pointer-events-none ${
@@ -131,7 +130,6 @@ export default function SignUpForm({ onAuthSuccess }) {
             />
           </div>
 
-          {/* Email Field */}
           <div className="relative">
             <label className={getLabelClass()}>
               EMAIL
@@ -148,7 +146,6 @@ export default function SignUpForm({ onAuthSuccess }) {
             />
           </div>
 
-          {/* Password Field */}
           <div className="relative">
             <label 
               className={`absolute left-0 transition-all duration-300 pointer-events-none ${
@@ -169,7 +166,6 @@ export default function SignUpForm({ onAuthSuccess }) {
               required
             />
 
-            {/* Password validation list */}
             <ul id="validate-password" className="mt-2 text-sm">
               {passwordChecks.map((check, idx) => (
                 <li 

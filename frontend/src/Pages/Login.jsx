@@ -35,7 +35,6 @@ export default function GeometricSignInForm({ onAuthSuccess }) {
       const data = await response.json();
       
       if (data.success) {
-        // Store user data in localStorage
         console.log("Data: "+data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('token', data.token);

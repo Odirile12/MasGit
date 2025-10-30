@@ -8,7 +8,6 @@ const Spash = () => {
 
     return (
         <div className="w-full flex items-center justify-center h-screen bg-[url('../../public/svgviewer-png-output.png')] text-white relative">
-            {/* Toggle Buttons */}
             <div className="absolute top-10 flex space-x-4">
                 <button
                     onClick={() => setIsLogin(true)}
@@ -25,7 +24,6 @@ const Spash = () => {
                 </button>
             </div>
 
-            {/* Form Container */}
             <div className="flex items-center justify-center w-full h-full">
                 {isLogin ? <GeometricSignInForm /> : <SignUpForm />}
             </div>

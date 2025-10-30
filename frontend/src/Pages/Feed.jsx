@@ -85,26 +85,21 @@ const GitHubFeed = () => {
 
     return (
         <div className="min-h-screen dark:bg-gray-900 dark:text-white bg-white text-gray-900 backdrop-blur-sm">
-            {/* Enhanced Header with Profile Navigation */}
             <div className="dark:bg-gray-800 bg-gray-100 border-b dark:border-gray-700 border-gray-300 px-6 py-4">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center justify-between">
-                        {/* Left side - Brand/Title */}
                         <div className="flex items-center gap-4">
                             <h1 className="text-xl font-bold dark:text-white text-gray-900">
                                 CodeCollab Feed
                             </h1>
                         </div>
 
-                        {/* Right side - Navigation Links */}
                         <div className="flex items-center gap-4">
-                            {/* Home/Feed Link (current page) */}
                             <div className="flex items-center gap-2 px-3 py-2 dark:text-white text-gray-900 dark:bg-gray-700 bg-gray-200 rounded-md">
                                 <Home size={18} />
                                 <span>Feed</span>
                             </div>
 
-                            {/* Profile Link */}
                             <button
                                 onClick={handleGoToProfile}
                                 className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
@@ -114,7 +109,6 @@ const GitHubFeed = () => {
                             </button>
 
 
-                            {/* Logout Button */}
                             <button
                                 onClick={handleLogout}
                                 className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-red-400 hover:text-red-600 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
