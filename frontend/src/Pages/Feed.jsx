@@ -97,7 +97,7 @@ const GitHubFeed = () => {
                         <div className="flex items-center gap-4">
                             <div className="flex items-center gap-2 px-3 py-2 dark:text-white text-gray-900 dark:bg-gray-700 bg-gray-200 rounded-md">
                                 <Home size={18} />
-                                <span>Feed</span>
+                                <span>MasGit</span>
                             </div>
 
                             <button

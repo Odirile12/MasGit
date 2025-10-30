@@ -1,17 +1,14 @@
-docker build -t u24699587 .
-docker run -p 3009:8080 u24699587
+npm install
+Backend: node backend/server
+Frontend: npm start
 
-
-
+docker compose build
 docker-compose up
 
+github repo: https://github.com/Odirile12/MasGit
 
-// johndoe / john.doe@example.com / password123
-// jansmith / jane.smith@example.com / password456
-// mikejohnson / mike.johnson@example.com / password789
-Odi / odimas@gmail.com/NkosiM39@29Ve
 
-admin@example.com
+.com
 Ve / veplus@gmail.co.za /MasaNkosa#03
 
 
@@ -75,97 +72,3 @@ Ve / veplus@gmail.co.za /MasaNkosa#03
 
   }
 ]
-[
-  {
-    "projectName": "nextjs-blog-starter",
-    "projectTitle": "Next.js Blog Starter",
-    "description": "A starter template for blogs using Next.js, MDX, and Tailwind CSS.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["nextjs", "blog", "tailwind", "mdx"],
-    "private": false
-  },
-  {
-    "projectName": "express-rate-limiter",
-    "projectTitle": "Rate Limiting Middleware",
-    "description": "Express middleware for IP-based rate limiting using Redis.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["express", "redis", "ratelimit", "middleware"],
-    "private": true
-  },
-  {
-    "projectName": "react-image-gallery",
-    "projectTitle": "Image Gallery UI",
-    "description": "A responsive image gallery with lightbox and lazy loading.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["react", "gallery", "lightbox", "lazyload"],
-    "private": false
-  },
-  {
-    "projectName": "typescript-quiz-app",
-    "projectTitle": "Quiz App in TS",
-    "description": "A quiz application built with React and TypeScript, featuring score tracking and timed questions.",
-    "primaryLanguage": "TypeScript",
-    "projectType": "Web",
-    "hashtags": ["typescript", "quiz", "react", "hooks"],
-    "private": false
-  },
-  {
-    "projectName": "node-email-service",
-    "projectTitle": "Email Service API",
-    "description": "Node.js service for sending transactional emails via SendGrid.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["nodejs", "email", "sendgrid", "api"],
-    "private": true
-  },
-  {
-    "projectName": "createjs-banner-ads",
-    "projectTitle": "Animated Banner Ads",
-    "description": "A set of animated HTML5 ads created with Adobe Animate and CreateJS.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["createjs", "ads", "animation", "html5"],
-    "private": false
-  },
-  {
-    "projectName": "docker-nginx-proxy",
-    "projectTitle": "Nginx Reverse Proxy",
-    "description": "Dockerized Nginx setup for reverse proxying multiple services.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["docker", "nginx", "proxy", "reverseproxy"],
-    "private": true
-  },
-  {
-    "projectName": "react-currency-converter",
-    "projectTitle": "Currency Converter",
-    "description": "A currency converter app using React and live exchange rate APIs.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["react", "currency", "api", "converter"],
-    "private": false
-  },
-  {
-    "projectName": "typescript-form-wizard",
-    "projectTitle": "Multi-Step Form Wizard",
-    "description": "A multi-step form wizard with validation and progress tracking in TypeScript.",
-    "primaryLanguage": "TypeScript",
-    "projectType": "Web",
-    "hashtags": ["typescript", "form", "wizard", "validation"],
-    "private": false
-  },
-  {
-    "projectName": "node-logging-service",
-    "projectTitle": "Centralized Logging",
-    "description": "Node.js service for centralized logging using Winston and MongoDB.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["nodejs", "logging", "winston", "mongodb"],
-    "private": true
-  }
-]
-
-https://github.com/Odirile12/MasGit

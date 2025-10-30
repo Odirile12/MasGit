@@ -231,7 +231,7 @@ const FileViewer = () => {
                 className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
               >
                 <Home size={18} />
-                <span>Feed</span>
+                <span>MasGit</span>
               </button>
               
               <button

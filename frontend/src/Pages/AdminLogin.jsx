@@ -1,9 +1,9 @@
-// 52_Masanabo
+// MasGit Admin Login
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router";
 import { Shield } from 'lucide-react';
 
-export default function AdminLoginForm({ onAuthSuccess }) {
+export default function MasGitAdminLoginForm({ onAuthSuccess }) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -65,24 +65,24 @@ export default function AdminLoginForm({ onAuthSuccess }) {
         {/* Admin Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="p-4 bg-red-600 rounded-full">
+            <div className="p-4 bg-blue-600 rounded-full">
               <Shield size={48} className="text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Admin Access</h1>
-          <p className="text-gray-400">Sign in with admin credentials</p>
+          <h1 className="text-3xl font-bold text-white font-mono mb-2">MasGit Admin</h1>
+          <p className="text-gray-400">Version Control Administration</p>
         </div>
 
         {/* Login Form */}
-        <div className="backdrop-blur-sm bg-black/30 border border-white/10 rounded-lg px-8 py-12">
-          <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg px-8 py-12">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <div className="relative">
               <label
                 className={`absolute left-0 transition-all duration-300 pointer-events-none ${
                   focusedField === 'email' || formData.email
-                    ? '-top-6 text-sm text-red-400'
-                    : 'top-0 text-lg text-red-500'
+                    ? '-top-6 text-sm text-blue-400'
+                    : 'top-0 text-lg text-gray-400'
                 }`}
               >
                 ADMIN EMAIL
@@ -93,7 +93,7 @@ export default function AdminLoginForm({ onAuthSuccess }) {
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 onFocus={() => setFocusedField('email')}
                 onBlur={() => setFocusedField('')}
-                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-red-400 outline-none text-white text-lg py-2 transition-all duration-300"
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-blue-400 outline-none text-white text-lg py-2 transition-all duration-300 font-mono"
                 required
                 placeholder="admin@example.com"
               />
@@ -104,8 +104,8 @@ export default function AdminLoginForm({ onAuthSuccess }) {
               <label
                 className={`absolute left-0 transition-all duration-300 pointer-events-none ${
                   focusedField === 'password' || formData.password
-                    ? '-top-6 text-sm text-red-400'
-                    : 'top-0 text-lg text-red-500'
+                    ? '-top-6 text-sm text-blue-400'
+                    : 'top-0 text-lg text-gray-400'
                 }`}
               >
                 PASSWORD
@@ -116,7 +116,7 @@ export default function AdminLoginForm({ onAuthSuccess }) {
                 onChange={(e) => handleInputChange('password', e.target.value)}
                 onFocus={() => setFocusedField('password')}
                 onBlur={() => setFocusedField('')}
-                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-red-400 outline-none text-white text-lg py-2 transition-all duration-300"
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-blue-400 outline-none text-white text-lg py-2 transition-all duration-300 font-mono"
                 required
               />
             </div>
@@ -126,20 +126,9 @@ export default function AdminLoginForm({ onAuthSuccess }) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="hover:text-black"
-                style={{
-                  fontFamily: 'cursive, sans-serif',
-                  fontSize: '2rem',
-                  fontWeight: 'bold',
-                }}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-mono px-6 py-3 rounded-md transition-colors duration-300 disabled:opacity-50"
               >
-                {isLoading ? (
-                  <span className="text-white">Authenticating...</span>
-                ) : (
-                  <span className="relative z-10 text-4xl font-extralight p-3 font-sans hover:bg-[rgba(255,255,255,0.22)] text-white">
-                    Admin Login
-                  </span>
-                )}
+                {isLoading ? 'Authenticating...' : 'Admin Login'}
               </button>
             </div>
           </form>
@@ -148,7 +137,7 @@ export default function AdminLoginForm({ onAuthSuccess }) {
           <div className="mt-8 text-center">
             <Link
               to="/"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors font-mono"
             >
               ← Back to Main Login
             </Link>

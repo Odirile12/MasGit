@@ -1,4 +1,4 @@
-// 52_Masanabo
+// MasGit Admin Signup
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router";
 import { Shield } from 'lucide-react';
@@ -10,7 +10,7 @@ const digitRegex = /(?=.*\d)/;
 const symbolRegex = /(?=.*[\W_])/;
 const minLengthRegex = /^.{9,}$/;
 
-export default function AdminSignupForm({ onAuthSuccess }) {
+export default function MasGitAdminSignupForm({ onAuthSuccess }) {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -42,7 +42,7 @@ export default function AdminSignupForm({ onAuthSuccess }) {
     e.preventDefault();
 
     // Validate admin code (you can change this to any secret code)
-    if (formData.adminCode !== 'ADMIN2024') {
+    if (formData.adminCode !== 'ADMIN001') {
       alert("Invalid admin authorization code!");
       return;
     }
@@ -108,11 +108,11 @@ export default function AdminSignupForm({ onAuthSuccess }) {
 
     if (isFocusedOrFilled) {
       const color = field === 'email'
-        ? (emailRegex.test(formData.email) ? 'text-red-400' : 'text-red-400')
-        : 'text-red-400';
+        ? (emailRegex.test(formData.email) ? 'text-blue-400' : 'text-red-400')
+        : 'text-blue-400';
       return `${base} -top-6 text-sm ${color}`;
     } else {
-      return `${base} top-0 text-lg text-red-500`;
+      return `${base} top-0 text-lg text-gray-400`;
     }
   }
 
@@ -122,17 +122,17 @@ export default function AdminSignupForm({ onAuthSuccess }) {
         {/* Admin Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="p-4 bg-red-600 rounded-full">
+            <div className="p-4 bg-blue-600 rounded-full">
               <Shield size={48} className="text-white" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Create Admin Account</h1>
-          <p className="text-gray-400">Authorized personnel only</p>
+          <h1 className="text-3xl font-bold text-white font-mono mb-2">MasGit Admin Signup</h1>
+          <p className="text-gray-400">Version Control Administration</p>
         </div>
 
         {/* Signup Form */}
-        <div className="backdrop-blur-sm bg-black/30 border border-white/10 rounded-lg px-8 py-12">
-          <form onSubmit={handleSubmit} className="space-y-8">
+        <div className="bg-gray-900 border border-gray-700 rounded-lg shadow-lg px-8 py-12">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Admin Code Field */}
             <div className="relative">
               <label className={getLabelClass('adminCode')}>
@@ -144,7 +144,7 @@ export default function AdminSignupForm({ onAuthSuccess }) {
                 onChange={(e) => handleInputChange('adminCode', e.target.value)}
                 onFocus={() => setFocusedField('adminCode')}
                 onBlur={() => setFocusedField('')}
-                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-red-400 outline-none text-white text-lg py-2 transition-all duration-300"
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-blue-400 outline-none text-white text-lg py-2 transition-all duration-300 font-mono"
                 placeholder="Enter authorization code"
                 required
               />
@@ -161,7 +161,7 @@ export default function AdminSignupForm({ onAuthSuccess }) {
                 onChange={(e) => handleInputChange('username', e.target.value)}
                 onFocus={() => setFocusedField('username')}
                 onBlur={() => setFocusedField('')}
-                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-red-400 outline-none text-white text-lg py-2 transition-all duration-300"
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-blue-400 outline-none text-white text-lg py-2 transition-all duration-300 font-mono"
                 required
               />
             </div>
@@ -177,8 +177,8 @@ export default function AdminSignupForm({ onAuthSuccess }) {
                 onChange={(e) => handleInputChange('email', e.target.value)}
                 onFocus={() => setFocusedField('email')}
                 onBlur={() => setFocusedField('')}
-                className={`w-full bg-transparent border-0 border-b-2 outline-none text-white text-lg py-2 transition-all duration-300
-                  ${emailRegex.test(formData.email) ? "border-red-400" : "border-red-400"}`}
+                className={`w-full bg-transparent border-0 border-b-2 outline-none text-white text-lg py-2 transition-all duration-300 font-mono
+                  ${emailRegex.test(formData.email) ? "border-blue-400" : "border-red-400"}`}
                 required
               />
             </div>
@@ -194,7 +194,7 @@ export default function AdminSignupForm({ onAuthSuccess }) {
                 onChange={(e) => handleInputChange('password', e.target.value)}
                 onFocus={() => setFocusedField('password')}
                 onBlur={() => setFocusedField('')}
-                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-red-400 outline-none text-white text-lg py-2 transition-all duration-300"
+                className="w-full bg-transparent border-0 border-b-2 border-gray-600 focus:border-blue-400 outline-none text-white text-lg py-2 transition-all duration-300 font-mono"
                 required
               />
 
@@ -203,7 +203,7 @@ export default function AdminSignupForm({ onAuthSuccess }) {
                 {passwordChecks.map((check, idx) => (
                   <li
                     key={idx}
-                    className={`pass ${check.valid ? "text-red-400" : "text-red-400"}`}
+                    className={`pass ${check.valid ? "text-blue-400" : "text-red-400"}`}
                   >
                     {check.label}
                   </li>
@@ -222,8 +222,8 @@ export default function AdminSignupForm({ onAuthSuccess }) {
                 onChange={(e) => handleInputChange('confirm', e.target.value)}
                 onFocus={() => setFocusedField('confirm')}
                 onBlur={() => setFocusedField('')}
-                className={`w-full bg-transparent border-0 border-b-2 outline-none text-white text-lg py-2 transition-all duration-300
-                  ${formData.confirm && formData.confirm === formData.password ? "border-red-400" : "border-red-400"}`}
+                className={`w-full bg-transparent border-0 border-b-2 outline-none text-white text-lg py-2 transition-all duration-300 font-mono
+                  ${formData.confirm && formData.confirm === formData.password ? "border-blue-400" : "border-red-400"}`}
                 required
               />
             </div>
@@ -233,20 +233,9 @@ export default function AdminSignupForm({ onAuthSuccess }) {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="hover:text-black text-white"
-                style={{
-                  fontFamily: 'cursive, sans-serif',
-                  fontSize: '2rem',
-                  fontWeight: 'bold',
-                }}
+                className="bg-blue-600 hover:bg-blue-700 text-white font-mono px-6 py-3 rounded-md transition-colors duration-300 disabled:opacity-50"
               >
-                {isLoading ? (
-                  <span className="text-white">Creating Admin Account...</span>
-                ) : (
-                  <span className="relative z-10 text-4xl font-extralight p-3 font-sans hover:bg-[rgba(255,255,255,0.22)] text-white">
-                    Create Admin Account
-                  </span>
-                )}
+                {isLoading ? 'Creating Admin Account...' : 'Create Admin Account'}
               </button>
             </div>
           </form>
@@ -255,7 +244,7 @@ export default function AdminSignupForm({ onAuthSuccess }) {
           <div className="mt-8 text-center">
             <Link
               to="/AdminLogin"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors font-mono"
             >
               ← Back to Admin Login
             </Link>

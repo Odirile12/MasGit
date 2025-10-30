@@ -7,7 +7,6 @@ const path = require('path');
 
 const router = express.Router();
 
-// Configure multer for avatar uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'backend/uploads/avatars/');

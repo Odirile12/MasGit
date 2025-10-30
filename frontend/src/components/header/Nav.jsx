@@ -63,7 +63,7 @@ const Nevigat = ({ name, lik }) => {
             className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
           >
             <Home size={18} />
-            <span>Feed</span>
+            <span>MasGit</span>
           </Link>
 
           {/* Profile Link */}
