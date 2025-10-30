@@ -10,7 +10,158 @@ docker-compose up
 // jansmith / jane.smith@example.com / password456
 // mikejohnson / mike.johnson@example.com / password789
 Odi / odimas@gmail.com/NkosiM39@29Ve
+
 admin@example.com
 Ve / veplus@gmail.co.za /MasaNkosa#03
+
+
+[
+  {
+    "username": "jdoe",
+    "email": "jdoe@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "asmith",
+    "email": "asmith@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "mbrown",
+    "email": "mbrown@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "lwilson",
+    "email": "lwilson@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "knguyen",
+    "email": "knguyen@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "rpatel",
+    "email": "rpatel@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "tlee",
+    "email": "tlee@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "csanchez",
+    "email": "csanchez@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "bwhite",
+    "email": "bwhite@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "hkim",
+    "email": "hkim@example.com",
+    "password": "Passw0rd!"
+  }
+]
+
+[
+  {
+    "projectName": "typescript-form-builder",
+    "projectTitle": "Dynamic Form Builder",
+    "description": "A reusable form builder using React and TypeScript. Supports validation, conditional fields, and custom widgets.",
+    "primaryLanguage": "TypeScript",
+    "projectType": "Web",
+    "hashtags": ["react", "typescript", "form", "validation"],
+    "private": false
+  },
+  {
+    "projectName": "ws-chat-app",
+    "projectTitle": "Real-Time Chat App",
+    "description": "A WebSocket-powered chat app with rooms, emojis, and user presence indicators. Built with Node.js and vanilla JS.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["websocket", "chat", "nodejs", "realtime"],
+    "private": true
+  },
+  {
+    "projectName": "mongo-analytics",
+    "projectTitle": "Data Analytics Dashboard",
+    "description": "A dashboard that visualizes MongoDB data using Chart.js and Express. Includes filters, exports, and role-based access.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["mongodb", "express", "charts", "analytics"],
+    "private": false
+  },
+  {
+    "projectName": "animate-portfolio",
+    "projectTitle": "Animated Portfolio with CreateJS",
+    "description": "An interactive portfolio using Adobe Animate and CreateJS. Features timeline-controlled transitions and symbol scripting.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["createjs", "adobeanimate", "portfolio", "animation"],
+    "private": false
+  },
+  {
+    "projectName": "cpp-cli-tools",
+    "projectTitle": "C++ CLI Utilities",
+    "description": "A collection of command-line tools written in C++ for file parsing, color-coded output, and system diagnostics.",
+    "primaryLanguage": "C++",
+    "projectType": "Web",
+    "hashtags": ["cpp", "cli", "tools", "console"],
+    "private": true
+  }
+]
+
+[
+  {
+    "projectName": "react-dashboard",
+    "projectTitle": "Admin Dashboard UI",
+    "description": "A responsive admin dashboard built with React and Tailwind CSS. Includes charts, tables, and user management.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["react", "tailwind", "charts", "dashboard"],
+    "private": false
+  },
+  {
+    "projectName": "node-api-server",
+    "projectTitle": "RESTful API with Express",
+    "description": "Backend API for managing users, authentication, and CRUD operations. Uses MongoDB and JWT.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["nodejs", "express", "mongodb", "jwt"],
+    "private": true
+  },
+  {
+    "projectName": "portfolio-site",
+    "projectTitle": "Personal Portfolio",
+    "description": "A sleek portfolio website showcasing projects, skills, and contact form. Built with React and styled-components.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["react", "portfolio", "styled-components"],
+    "private": false
+  },
+  {
+    "projectName": "blender-showcase",
+    "projectTitle": "3D Model Gallery",
+    "description": "A web-based gallery to showcase Blender 3D models with interactive previews and download options.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["blender", "threejs", "gallery", "3d"],
+    "private": false
+  },
+  {
+    "projectName": "dockerized-app",
+    "projectTitle": "Fullstack App with Docker",
+    "description": "A fullstack MERN app containerized with Docker and orchestrated using Docker Compose.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["docker", "mern", "compose", "fullstack"],
+    "private": true
+  }
+]
 
 https://github.com/Odirile12/MasGit

@@ -1,78 +1,10 @@
-// const path = require('path');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-
-// module.exports = {
-//   entry: './frontend/src/index.js',
-//   output: {
-//     path: path.resolve(__dirname, 'frontend/public'),
-//     filename: 'bundle.js',
-//     publicPath: '/',
-//   },
-//   mode: 'development',
-//   module: {
-//     rules: [
-//       {
-//         test: /\.(js|jsx)$/,
-//         exclude: /node_modules/,
-//         use: {
-//           loader: 'babel-loader',
-//           options: {
-//             presets: [
-//               ['@babel/preset-env', {
-//                 targets: {
-//                   browsers: ['last 2 versions']
-//                 }
-//               }],
-//               ['@babel/preset-react', {
-//                 runtime: 'automatic'
-//               }]
-//             ]
-//           }
-//         }
-//       },
-//       {
-//         test: /\.css$/i,
-//         use: ['style-loader', 'css-loader', 'postcss-loader'],
-//       },
-//       {
-//         test: /\.svg$/i,
-//         issuer: /\.[jt]sx?$/,
-//         use: ['@svgr/webpack'],
-//       },
-//     ],
-//   },
-//   resolve: {
-//     extensions: ['.js', '.jsx', '.css'],
-//   },
-//   devServer: {
-//     static: {
-//       directory: path.resolve(__dirname, 'frontend/public'),
-//     },
-//     historyApiFallback: true,
-//     port: 8080,
-//     host: '0.0.0.0', // Important for Docker
-//     allowedHosts: 'all', // Important for Docker
-//     hot: true,
-//   },
-//   plugins: [
-//     new HtmlWebpackPlugin({
-//       template: './frontend/public/index.html',
-//     }),
-//   ],
-//   stats: {
-//     modules: true,
-//     reasons: true,
-//     errorDetails: true,
-//   },
-// };
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './frontend/src/index.js',  // Changed: removed './frontend/'
+  entry: './frontend/src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),  // Changed: removed 'frontend/'
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/',
   },
@@ -114,7 +46,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'frontend/public'),  // Changed: removed 'frontend/'
+      directory: path.resolve(__dirname, 'frontend/public'),
     },
     historyApiFallback: true,
     port: 8080,
@@ -124,7 +56,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './frontend/public/index.html',  // Changed: removed 'frontend/'
+      template: './frontend/public/index.html',  
     }),
   ],
   stats: {

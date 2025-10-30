@@ -239,13 +239,13 @@ const Project = ({ project, currentUserId }) => {
 
       {/* Project Members */}
       {project.members && project.members.length > 0 && (
-        <div className="mb-4 p-3 bg-gray-700 rounded-lg">
+        <div className="mb-4-3 bg-gray-700 rounded-lg">
           <div className="flex items-center gap-2 mb-2">
             <Users size={16} className="text-gray-400" />
             <span className="text-gray-300 font-medium">Project Members</span>
             <span className="text-gray-500 text-sm">({project.members.length})</span>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex  flex-wrap gap-2">
             {project.members.map((member, index) => (
               <div key={index} className="flex items-center gap-2 px-2 py-1 bg-gray-600 rounded-md">
                 <img 
