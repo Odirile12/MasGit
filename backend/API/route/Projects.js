@@ -1,3 +1,4 @@
+// 52_Masanabo
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -307,8 +308,7 @@ router.get('/:id/files/:filename', auth, async (req, res) => {
   }
 });
 
-// save
-// PUT endpoint for updating/saving files
+
 router.put('/:id/files/:filename', auth, async (req, res) => {
   try {
     const { content } = req.body;
@@ -349,7 +349,6 @@ router.put('/:id/files/:filename', auth, async (req, res) => {
       file.lastModifiedBy = req.user._id;
     }
 
-    // Create activity for file modification
     const activity = new Activity({
       userId: req.user._id,
       username: req.user.username,
@@ -372,8 +371,7 @@ router.put('/:id/files/:filename', auth, async (req, res) => {
   }
 });
 
-// Create new file
-// Create new file - FIXED VERSION
+
 router.post('/:id/files', auth, async (req, res) => {
   try {
     const { filename, content } = req.body;
@@ -723,7 +721,7 @@ router.post('/:id/members', auth, async (req, res) => {
   try {
     const { userId } = req.body;
     const project = await Project.findById(req.params.id);
-    
+
     if (!project) {
       return res.status(404).json({ message: 'Project not found' });
     }
@@ -736,7 +734,46 @@ router.post('/:id/members', auth, async (req, res) => {
       return res.status(400).json({ message: 'User is already a member' });
     }
 
+    // Check if the user to be added is a friend of the project owner
+    const owner = await User.findById(req.user._id);
+    if (!owner.friends.includes(userId)) {
+      return res.status(403).json({ message: 'Can only add friends as project members' });
+    }
+
     project.members.push(userId);
+    await project.save();
+
+    await project.populate('members', 'name username avatar');
+    res.json(project);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Remove member from project
+router.delete('/:id/members/:userId', auth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const project = await Project.findById(req.params.id);
+
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    if (project.owner.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Only project owner can remove members' });
+    }
+
+    if (!project.members.includes(userId)) {
+      return res.status(400).json({ message: 'User is not a member of this project' });
+    }
+
+    // Prevent owner from removing themselves
+    if (userId === req.user._id.toString()) {
+      return res.status(400).json({ message: 'Cannot remove yourself from the project' });
+    }
+
+    project.members = project.members.filter(member => member.toString() !== userId);
     await project.save();
 
     await project.populate('members', 'name username avatar');

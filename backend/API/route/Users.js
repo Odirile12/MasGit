@@ -1,3 +1,4 @@
+// 52_Masanabo
 const express = require('express');
 const User = require('../models/User');
 const auth = require('../middleware/Auth');
@@ -6,7 +7,6 @@ const path = require('path');
 
 const router = express.Router();
 
-// Configure multer for avatar uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'backend/uploads/avatars/');

@@ -1,16 +1,74 @@
-docker build -t u24699587 .
-docker run -p 3009:8080 u24699587
+npm install
+Backend: node backend/server
+Frontend: npm start
 
-
-
+docker compose build
 docker-compose up
 
+github repo: https://github.com/Odirile12/MasGit
 
-// johndoe / john.doe@example.com / password123
-// jansmith / jane.smith@example.com / password456
-// mikejohnson / mike.johnson@example.com / password789
-Odi / odimas@gmail.com/NkosiM39@29Ve
-admin@example.com
+
+.com
 Ve / veplus@gmail.co.za /MasaNkosa#03
 
-https://github.com/Odirile12/MasGit
+
+[
+  {
+    "username": "jdoe",
+    "email": "jdoe@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "asmith",
+    "email": "asmith@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "mbrown",
+    "email": "mbrown@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "lwilson",
+    "email": "lwilson@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "knguyen",
+    "email": "knguyen@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "rpatel",
+    "email": "rpatel@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "tlee",
+    "email": "tlee@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "csanchez",
+    "email": "csanchez@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "bwhite",
+    "email": "bwhite@example.com",
+    "password": "Passw0rd!"
+  },
+  {
+    "username": "hkim",
+    "email": "hkim@example.com",
+    "password": "Passw0rd!"
+  }
+  {
+    "ADMIN CODE":"ADMIN001",
+    "username":"NkosinathiMas",
+    "email":"NkosinathiMas@gmail.com",
+    "password": "Passw0rd!",
+
+
+  }
+]

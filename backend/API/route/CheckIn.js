@@ -1,3 +1,4 @@
+// 52_Masanabo
 const express = require('express');
 const Checkin = require('../models/CheckIn');
 const auth = require('../middleware/Auth');
