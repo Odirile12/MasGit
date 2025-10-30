@@ -54,10 +54,10 @@
 // export default EditProject
 
 import React, { useState } from "react";
-import { Edit3, CheckCircle, Clock } from "lucide-react";
-import CheckInModal from "./CheckInModal"; // You'll need to create this
+import { Edit3, CheckCircle, Clock, Lock, Globe } from "lucide-react";
+import CheckInModal from "./CheckInModal";
 
-const EditProject = ({ project, onSave }) => {
+const EditProject = ({ project, onSave, currentUserId }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isCheckInModalOpen, setIsCheckInModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -70,23 +70,33 @@ const EditProject = ({ project, onSave }) => {
   });
 
   const isCheckedOut = project.checkedOutBy && project.checkedOutBy._id;
-  
-  // You'll need to get current user ID from context
-  const currentUserId = "current-user-id"; // Replace with actual current user ID
   const isCheckedOutByCurrentUser = isCheckedOut && project.checkedOutBy._id === currentUserId;
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-      
+
+      const updateData = {
+        ...formData,
+        hashtags: formData.hashtags.split(',').map(tag => tag.trim()).filter(tag => tag)
+      };
+
       const response = await fetch(`http://localhost:5000/api/projects/${project._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(updateData)
       });
 
       if (!response.ok) throw new Error('Failed to update project');
@@ -144,7 +154,109 @@ const EditProject = ({ project, onSave }) => {
         {/* Edit Form */}
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Your existing form fields */}
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Project Name
+              </label>
+              <input
+                type="text"
+                name="title"
+                value={formData.title}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Description
+              </label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                rows={3}
+                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Language
+                </label>
+                <select
+                  name="language"
+                  value={formData.language}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="javascript">JavaScript</option>
+                  <option value="python">Python</option>
+                  <option value="java">Java</option>
+                  <option value="cpp">C++</option>
+                  <option value="c">C</option>
+                  <option value="csharp">C#</option>
+                  <option value="php">PHP</option>
+                  <option value="ruby">Ruby</option>
+                  <option value="go">Go</option>
+                  <option value="rust">Rust</option>
+                  <option value="typescript">TypeScript</option>
+                  <option value="html">HTML/CSS</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Type
+                </label>
+                <select
+                  name="type"
+                  value={formData.type}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-blue-500"
+                >
+                  <option value="web">Web App</option>
+                  <option value="mobile">Mobile App</option>
+                  <option value="desktop">Desktop App</option>
+                  <option value="api">API</option>
+                  <option value="library">Library</option>
+                  <option value="game">Game</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Hashtags (comma-separated)
+              </label>
+              <input
+                type="text"
+                name="hashtags"
+                value={formData.hashtags}
+                onChange={handleInputChange}
+                placeholder="react, frontend, ui"
+                className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                name="isPrivate"
+                checked={formData.isPrivate}
+                onChange={handleInputChange}
+                className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
+              />
+              <label className="flex items-center gap-2 text-sm font-medium text-gray-300">
+                {formData.isPrivate ? <Lock size={16} /> : <Globe size={16} />}
+                Private Project
+              </label>
+            </div>
+
             <div className="flex gap-3">
               <button
                 type="submit"

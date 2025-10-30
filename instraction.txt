@@ -67,99 +67,95 @@ Ve / veplus@gmail.co.za /MasaNkosa#03
     "password": "Passw0rd!"
   }
 ]
-
 [
   {
-    "projectName": "typescript-form-builder",
-    "projectTitle": "Dynamic Form Builder",
-    "description": "A reusable form builder using React and TypeScript. Supports validation, conditional fields, and custom widgets.",
+    "projectName": "nextjs-blog-starter",
+    "projectTitle": "Next.js Blog Starter",
+    "description": "A starter template for blogs using Next.js, MDX, and Tailwind CSS.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["nextjs", "blog", "tailwind", "mdx"],
+    "private": false
+  },
+  {
+    "projectName": "express-rate-limiter",
+    "projectTitle": "Rate Limiting Middleware",
+    "description": "Express middleware for IP-based rate limiting using Redis.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["express", "redis", "ratelimit", "middleware"],
+    "private": true
+  },
+  {
+    "projectName": "react-image-gallery",
+    "projectTitle": "Image Gallery UI",
+    "description": "A responsive image gallery with lightbox and lazy loading.",
+    "primaryLanguage": "JavaScript",
+    "projectType": "Web",
+    "hashtags": ["react", "gallery", "lightbox", "lazyload"],
+    "private": false
+  },
+  {
+    "projectName": "typescript-quiz-app",
+    "projectTitle": "Quiz App in TS",
+    "description": "A quiz application built with React and TypeScript, featuring score tracking and timed questions.",
     "primaryLanguage": "TypeScript",
     "projectType": "Web",
-    "hashtags": ["react", "typescript", "form", "validation"],
+    "hashtags": ["typescript", "quiz", "react", "hooks"],
     "private": false
   },
   {
-    "projectName": "ws-chat-app",
-    "projectTitle": "Real-Time Chat App",
-    "description": "A WebSocket-powered chat app with rooms, emojis, and user presence indicators. Built with Node.js and vanilla JS.",
+    "projectName": "node-email-service",
+    "projectTitle": "Email Service API",
+    "description": "Node.js service for sending transactional emails via SendGrid.",
     "primaryLanguage": "JavaScript",
     "projectType": "Web",
-    "hashtags": ["websocket", "chat", "nodejs", "realtime"],
+    "hashtags": ["nodejs", "email", "sendgrid", "api"],
     "private": true
   },
   {
-    "projectName": "mongo-analytics",
-    "projectTitle": "Data Analytics Dashboard",
-    "description": "A dashboard that visualizes MongoDB data using Chart.js and Express. Includes filters, exports, and role-based access.",
+    "projectName": "createjs-banner-ads",
+    "projectTitle": "Animated Banner Ads",
+    "description": "A set of animated HTML5 ads created with Adobe Animate and CreateJS.",
     "primaryLanguage": "JavaScript",
     "projectType": "Web",
-    "hashtags": ["mongodb", "express", "charts", "analytics"],
+    "hashtags": ["createjs", "ads", "animation", "html5"],
     "private": false
   },
   {
-    "projectName": "animate-portfolio",
-    "projectTitle": "Animated Portfolio with CreateJS",
-    "description": "An interactive portfolio using Adobe Animate and CreateJS. Features timeline-controlled transitions and symbol scripting.",
+    "projectName": "docker-nginx-proxy",
+    "projectTitle": "Nginx Reverse Proxy",
+    "description": "Dockerized Nginx setup for reverse proxying multiple services.",
     "primaryLanguage": "JavaScript",
     "projectType": "Web",
-    "hashtags": ["createjs", "adobeanimate", "portfolio", "animation"],
-    "private": false
-  },
-  {
-    "projectName": "cpp-cli-tools",
-    "projectTitle": "C++ CLI Utilities",
-    "description": "A collection of command-line tools written in C++ for file parsing, color-coded output, and system diagnostics.",
-    "primaryLanguage": "C++",
-    "projectType": "Web",
-    "hashtags": ["cpp", "cli", "tools", "console"],
-    "private": true
-  }
-]
-
-[
-  {
-    "projectName": "react-dashboard",
-    "projectTitle": "Admin Dashboard UI",
-    "description": "A responsive admin dashboard built with React and Tailwind CSS. Includes charts, tables, and user management.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["react", "tailwind", "charts", "dashboard"],
-    "private": false
-  },
-  {
-    "projectName": "node-api-server",
-    "projectTitle": "RESTful API with Express",
-    "description": "Backend API for managing users, authentication, and CRUD operations. Uses MongoDB and JWT.",
-    "primaryLanguage": "JavaScript",
-    "projectType": "Web",
-    "hashtags": ["nodejs", "express", "mongodb", "jwt"],
+    "hashtags": ["docker", "nginx", "proxy", "reverseproxy"],
     "private": true
   },
   {
-    "projectName": "portfolio-site",
-    "projectTitle": "Personal Portfolio",
-    "description": "A sleek portfolio website showcasing projects, skills, and contact form. Built with React and styled-components.",
+    "projectName": "react-currency-converter",
+    "projectTitle": "Currency Converter",
+    "description": "A currency converter app using React and live exchange rate APIs.",
     "primaryLanguage": "JavaScript",
     "projectType": "Web",
-    "hashtags": ["react", "portfolio", "styled-components"],
+    "hashtags": ["react", "currency", "api", "converter"],
     "private": false
   },
   {
-    "projectName": "blender-showcase",
-    "projectTitle": "3D Model Gallery",
-    "description": "A web-based gallery to showcase Blender 3D models with interactive previews and download options.",
-    "primaryLanguage": "JavaScript",
+    "projectName": "typescript-form-wizard",
+    "projectTitle": "Multi-Step Form Wizard",
+    "description": "A multi-step form wizard with validation and progress tracking in TypeScript.",
+    "primaryLanguage": "TypeScript",
     "projectType": "Web",
-    "hashtags": ["blender", "threejs", "gallery", "3d"],
+    "hashtags": ["typescript", "form", "wizard", "validation"],
     "private": false
   },
   {
-    "projectName": "dockerized-app",
-    "projectTitle": "Fullstack App with Docker",
-    "description": "A fullstack MERN app containerized with Docker and orchestrated using Docker Compose.",
+    "projectName": "node-logging-service",
+    "projectTitle": "Centralized Logging",
+    "description": "Node.js service for centralized logging using Winston and MongoDB.",
     "primaryLanguage": "JavaScript",
     "projectType": "Web",
-    "hashtags": ["docker", "mern", "compose", "fullstack"],
+    "hashtags": ["nodejs", "logging", "winston", "mongodb"],
     "private": true
   }
 ]

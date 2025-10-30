@@ -1,24 +1,38 @@
-# CodeCollab Project TODO List
+# Theme Implementation TODO
 
+## 1. Enable Dark Mode in Tailwind Config
+- [ ] Update tailwind.config.js to enable dark mode
 
-## Project Management
-- [ ] Can remove members from project
-- [ ] Can make another user owner of project
+## 2. Create Theme Context
+- [ ] Create ThemeContext.jsx in src/contexts/
+- [ ] Implement theme state management (light/dark)
+- [ ] Add localStorage persistence
+- [ ] Create ThemeProvider component
 
-## Project Page (Member View)
-- [ ] Project page for members
-- [ ] View/edit project discussion
+## 3. Update Main App Entry Point
+- [ ] Wrap app with ThemeProvider in index.js
 
-## Project Collaboration
-- [ ] Can add members (only friends) to project
+## 4. Add Theme Toggle Button
+- [ ] Add toggle button to Nav.jsx component
+- [ ] Import and use theme context
+- [ ] Style toggle button appropriately
 
-## UI/UX
-- [ ] Clicking website logo/name takes user to home page
-- [ ] Bonus: Light and dark mode
-- [ ] No errors in browser console
+## 5. Update All Components to Use Theme-Aware Classes
+- [ ] Update Nav.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update Feed.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update EditProject.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update UserProfile.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update header.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update projectCard.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update ProjectList.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update Profile.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update ProjectsList.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update Friends.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update CreateProject.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update EditProfile.jsx - replace hardcoded dark classes with theme-aware classes
+- [ ] Update searchBar.jsx - replace hardcoded dark classes with theme-aware classes
 
-## Deployment & Quality
-- [ ] GitHub README contains all Docker commands to run
-- [ ] Website displays correctly on any resolution
-- [ ] Favicon fits with theme
-- [ ] Favicon embedded on all pages
+## 6. Test Theme Switching
+- [ ] Test toggle functionality across different pages
+- [ ] Ensure proper contrast and readability in both modes
+- [ ] Verify localStorage persistence works correctly

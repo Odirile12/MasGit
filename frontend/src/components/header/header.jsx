@@ -1,44 +1,44 @@
 import React from 'react';
-import SearchBar from './searchBar'; 
+import SearchBar from './searchBar';
 
-const Header = ({ 
-    name, 
-    sortBy, 
-    filter, 
-    onSortChange, 
-    onFilterChange, 
+const Header = ({
+    name,
+    sortBy,
+    filter,
+    onSortChange,
+    onFilterChange,
     onSearchChange,
-    searchQuery 
+    searchQuery
 }) => {
     return (
-        <header className="bg-gray-800 border-b border-gray-700 px-6 py-4">
+        <header className="dark:bg-gray-800 bg-gray-100 border-b dark:border-gray-700 border-gray-300 px-6 py-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
-                    <h1 className="text-2xl font-bold text-white">{name}</h1>
+                    <h1 className="text-2xl font-bold dark:text-white text-gray-900">{name}</h1>
                 </div>
-                
+
                 <div className="flex items-center space-x-4">
                     {/* Search Bar */}
-                    <SearchBar 
+                    <SearchBar
                         onSearchChange={onSearchChange}
                         searchQuery={searchQuery}
                     />
-                    
+
                     {/* Filter Dropdown */}
-                    <select 
+                    <select
                         value={filter}
                         onChange={(e) => onFilterChange(e.target.value)}
-                        className="px-3 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="px-3 py-2 dark:bg-gray-700 bg-gray-200 dark:text-white text-gray-900 rounded-lg border dark:border-gray-600 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                         <option value="Local">Local</option>
                         <option value="Global">Global</option>
                     </select>
-                    
+
                     {/* Sort Dropdown */}
-                    <select 
+                    <select
                         value={sortBy}
                         onChange={(e) => onSortChange(e.target.value)}
-                        className="px-3 py-2 bg-gray-700 text-white rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        className="px-3 py-2 dark:bg-gray-700 bg-gray-200 dark:text-white text-gray-900 rounded-lg border dark:border-gray-600 border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                         <option value="Recent">Recent</option>
                         <option value="Popular">Popular</option>

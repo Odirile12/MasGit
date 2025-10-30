@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { User, Home, LogOut, Settings } from 'lucide-react';
 import { Link, useNavigate } from "react-router";
+import { useTheme } from '../contexts/ThemeContext';
 import Header from '../components/header/header';
 import ProjectList from '../components/Project/ProjectList';
 
@@ -82,14 +83,14 @@ const GitHubFeed = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 backdrop-blur-sm text-white">
+        <div className="min-h-screen dark:bg-gray-900 dark:text-white bg-white text-gray-900 backdrop-blur-sm">
             {/* Enhanced Header with Profile Navigation */}
-            <div className="bg-gray-800 border-b border-gray-700 px-6 py-4">
+            <div className="dark:bg-gray-800 bg-gray-100 border-b dark:border-gray-700 border-gray-300 px-6 py-4">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center justify-between">
                         {/* Left side - Brand/Title */}
                         <div className="flex items-center gap-4">
-                            <h1 className="text-xl font-bold text-white">
+                            <h1 className="text-xl font-bold dark:text-white text-gray-900">
                                 CodeCollab Feed
                             </h1>
                         </div>
@@ -97,7 +98,7 @@ const GitHubFeed = () => {
                         {/* Right side - Navigation Links */}
                         <div className="flex items-center gap-4">
                             {/* Home/Feed Link (current page) */}
-                            <div className="flex items-center gap-2 px-3 py-2 text-white bg-gray-700 rounded-md">
+                            <div className="flex items-center gap-2 px-3 py-2 dark:text-white text-gray-900 dark:bg-gray-700 bg-gray-200 rounded-md">
                                 <Home size={18} />
                                 <span>Feed</span>
                             </div>
@@ -105,7 +106,7 @@ const GitHubFeed = () => {
                             {/* Profile Link */}
                             <button
                                 onClick={handleGoToProfile}
-                                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+                                className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
                             >
                                 <User size={18} />
                                 <span>Profile</span>
@@ -115,7 +116,7 @@ const GitHubFeed = () => {
                             {/* Logout Button */}
                             <button
                                 onClick={handleLogout}
-                                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-red-400 hover:bg-gray-700 rounded-md transition-colors"
+                                className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-red-400 hover:text-red-600 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
                             >
                                 <LogOut size={18} />
                                 <span>Logout</span>

@@ -150,13 +150,13 @@ const SearchBar = ({ onSearchChange, searchQuery }) => {
             return (
                 <div
                     key={`${suggestion.type}-${suggestion.id}`}
-                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-600 transition-colors ${isSelected ? 'bg-gray-600' : ''}`}
+                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer dark:hover:bg-gray-600 hover:bg-gray-200 transition-colors ${isSelected ? 'dark:bg-gray-600 bg-gray-200' : ''}`}
                     onClick={() => handleSuggestionClick(suggestion)}
                 >
                     {getSuggestionIcon(suggestion.type)}
                     <div className="flex-1">
-                        <div className="font-medium text-white">{suggestion.displayText}</div>
-                        <div className="text-sm text-gray-400">@{suggestion.username}</div>
+                        <div className="font-medium dark:text-white text-gray-900">{suggestion.displayText}</div>
+                        <div className="text-sm dark:text-gray-400 text-gray-600">@{suggestion.username}</div>
                     </div>
                 </div>
             );
@@ -164,14 +164,14 @@ const SearchBar = ({ onSearchChange, searchQuery }) => {
             return (
                 <div
                     key={`${suggestion.type}-${suggestion.id}`}
-                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-600 transition-colors ${isSelected ? 'bg-gray-600' : ''}`}
+                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer dark:hover:bg-gray-600 hover:bg-gray-200 transition-colors ${isSelected ? 'dark:bg-gray-600 bg-gray-200' : ''}`}
                     onClick={() => handleSuggestionClick(suggestion)}
                 >
                     {getSuggestionIcon(suggestion.type)}
                     <div className="flex-1">
-                        <div className="font-medium text-white">{suggestion.text}</div>
+                        <div className="font-medium dark:text-white text-gray-900">{suggestion.text}</div>
                         {suggestion.description && (
-                            <div className="text-sm text-gray-400">{suggestion.description}</div>
+                            <div className="text-sm dark:text-gray-400 text-gray-600">{suggestion.description}</div>
                         )}
                         {suggestion.hashtags && suggestion.hashtags.length > 0 && (
                             <div className="flex gap-1 mt-1">
@@ -189,7 +189,7 @@ const SearchBar = ({ onSearchChange, searchQuery }) => {
             return (
                 <div
                     key={`${suggestion.type}-${suggestion.text}`}
-                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-600 transition-colors ${isSelected ? 'bg-gray-600' : ''}`}
+                    className={`flex items-center gap-3 px-4 py-3 cursor-pointer dark:hover:bg-gray-600 hover:bg-gray-200 transition-colors ${isSelected ? 'dark:bg-gray-600 bg-gray-200' : ''}`}
                     onClick={() => handleSuggestionClick(suggestion)}
                 >
                     {getSuggestionIcon(suggestion.type)}
@@ -212,16 +212,16 @@ const SearchBar = ({ onSearchChange, searchQuery }) => {
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 placeholder="Search users, projects, hashtags..."
-                className="w-150 px-4 py-2 text-sm rounded-xl bg-gray-700 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                className="w-150 px-4 py-2 text-sm rounded-xl dark:bg-gray-700 bg-gray-200 dark:text-gray-200 text-gray-900 dark:placeholder-gray-400 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
             />
             <Search
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                className="absolute right-3 top-1/2 -translate-y-1/2 dark:text-gray-400 text-gray-500"
                 size={18}
             />
 
             {/* Suggestions Dropdown */}
             {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute top-full mt-2 w-200 bg-gray-800 border border-gray-600 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
+                <div className="absolute top-full mt-2 w-200 dark:bg-gray-800 bg-white border dark:border-gray-600 border-gray-300 rounded-lg shadow-lg z-50 max-h-96 overflow-y-auto">
                     {suggestions.map((suggestion, index) => renderSuggestion(suggestion, index))}
                 </div>
             )}

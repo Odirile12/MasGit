@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
-import { Home, User, LogOut, Settings, Shield } from "lucide-react";
+import { Home, User, LogOut, Settings, Shield, Sun, Moon } from "lucide-react";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const Nevigat = ({ name, lik }) => {
   const navigate = useNavigate();
+  const { theme, toggleTheme, isDark } = useTheme();
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
@@ -36,19 +38,28 @@ const Nevigat = ({ name, lik }) => {
         <div className="flex items-center gap-4">
           <Link
             to="/Feed"
-            className="text-xl font-bold text-white hover:text-blue-400 transition-colors"
+            className="text-xl font-bold dark:text-white text-gray-900 hover:text-blue-400 transition-colors"
           >
             {name || "CodeCollab"}
           </Link>
-          {lik && <div className="text-gray-300">{lik}</div>}
+          {lik && <div className="dark:text-gray-300 text-gray-600">{lik}</div>}
         </div>
 
         {/* Right side - Navigation Links */}
         <div className="flex items-center gap-4">
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
+            title={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+          >
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
+
           {/* Home/Feed Link */}
           <Link
             to="/Feed"
-            className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+            className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
           >
             <Home size={18} />
             <span>Feed</span>
@@ -57,7 +68,7 @@ const Nevigat = ({ name, lik }) => {
           {/* Profile Link */}
           <Link
             to="/profile"
-            className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-md transition-colors"
+            className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-white hover:text-gray-900 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
           >
             <User size={18} />
             <span>Profile</span>
@@ -77,7 +88,7 @@ const Nevigat = ({ name, lik }) => {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-red-400 hover:bg-gray-700 rounded-md transition-colors"
+            className="flex items-center gap-2 px-3 py-2 dark:text-gray-300 text-gray-600 dark:hover:text-red-400 hover:text-red-600 dark:hover:bg-gray-700 hover:bg-gray-200 rounded-md transition-colors"
           >
             <LogOut size={18} />
             <span>Logout</span>
