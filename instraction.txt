@@ -66,6 +66,14 @@ Ve / veplus@gmail.co.za /MasaNkosa#03
     "email": "hkim@example.com",
     "password": "Passw0rd!"
   }
+  {
+    "ADMIN CODE":"ADMIN001",
+    "username":"NkosinathiMas",
+    "email":"NkosinathiMas@gmail.com",
+    "password": "Passw0rd!",
+
+
+  }
 ]
 [
   {

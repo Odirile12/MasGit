@@ -1,3 +1,4 @@
+// 52_Masanabo
 const mongoose = require('mongoose');
 
 const checkinSchema = new mongoose.Schema({

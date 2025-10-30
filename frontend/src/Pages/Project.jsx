@@ -1,3 +1,4 @@
+// 52_Masanabo
 import React, { useState, useEffect } from "react";
 import Nevigat from "../components/header/Nav";
 import { Link, useParams } from "react-router";
